@@ -30,6 +30,7 @@ const NAV_ITEMS = [
   { label: "Knowledge Gap Report", href: "/report", icon: GraduationCap },
   { label: "Explain Assistant (RAG)", href: "/assistant", icon: Sparkles },
   { label: "Progress Analytics", href: "/analytics", icon: BarChart3 },
+  { label: "Teacher & Classes", href: "/teacher", icon: GraduationCap },
 ];
 
 export default function Sidebar() {
