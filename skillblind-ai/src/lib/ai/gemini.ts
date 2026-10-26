@@ -9,23 +9,40 @@ if (apiKey) {
 
 export async function generateCompletion(prompt: string, systemInstruction?: string): Promise<string> {
   if (!genAI) {
-    // Return structured fallback response based on prompt context
     return fallbackResponse(prompt);
   }
 
-  try {
-    const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
-      systemInstruction: systemInstruction || "You are GapFinder AI, an expert cognitive diagnostic and educational intelligence assistant.",
-    });
+  // Attempt up to 2 retries with exponential backoff on transient errors (overloaded / 503 / 429)
+  const maxRetries = 2;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const model = genAI.getGenerativeModel({
+        model: "gemini-1.5-flash",
+        systemInstruction: systemInstruction || "You are GapFinder AI, an expert cognitive diagnostic and educational intelligence assistant.",
+      });
 
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
-    return text;
-  } catch (err) {
-    console.warn("Gemini API call failed or timed out, using fallback heuristics:", err);
-    return fallbackResponse(prompt);
+      const result = await model.generateContent(prompt);
+      const text = result.response.text();
+      if (text && text.trim().length > 0) {
+        return text;
+      }
+    } catch (err: unknown) {
+      const errMsg = err instanceof Error ? err.message : String(err);
+      const isTransient = errMsg.includes("overloaded") || errMsg.includes("503") || errMsg.includes("429") || errMsg.includes("quota");
+      
+      console.warn(`Gemini API call attempt ${attempt + 1} failed:`, errMsg);
+
+      if (attempt < maxRetries && isTransient) {
+        // Wait 1000ms * 2^attempt
+        await new Promise((r) => setTimeout(r, 1000 * Math.pow(2, attempt)));
+        continue;
+      }
+
+      break;
+    }
   }
+
+  return fallbackResponse(prompt);
 }
 
 function fallbackResponse(prompt: string): string {
@@ -61,5 +78,21 @@ function fallbackResponse(prompt: string): string {
     ]);
   }
 
+  // If prompted with retrieved passages (RAG Assistant)
+  if (prompt.includes("Retrieved Passages:") && prompt.includes("Student Question:")) {
+    const questionMatch = prompt.match(/Student Question:\s*([\s\S]+?)\s*Answer:/i);
+    const passagesMatch = prompt.match(/Retrieved Passages:\s*([\s\S]+?)\s*Student Question:/i);
+    if (questionMatch && passagesMatch) {
+      const question = questionMatch[1].trim();
+      const passages = passagesMatch[1].trim();
+      // Extract the most relevant sentence or paragraph from the retrieved passages
+      const lines = passages.split("\n").filter((l) => l.trim().length > 30 && !l.startsWith("[Passage"));
+      if (lines.length > 0) {
+        return `Based on your course materials: ${lines[0].trim()}`;
+      }
+    }
+  }
+
   return "GapFinder AI diagnostic engine analyzed the request according to syllabus grounded evidence.";
 }
+
