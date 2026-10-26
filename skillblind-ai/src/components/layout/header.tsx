@@ -128,7 +128,7 @@ export default function Header() {
           href="/quiz"
           className="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold flex items-center gap-1.5 shadow-xs transition-colors"
         >
-          <span>Take 20-Question Exam</span>
+          <span>Take Diagnostic Assessment</span>
         </Link>
 
         {/* User Pill & Auth */}

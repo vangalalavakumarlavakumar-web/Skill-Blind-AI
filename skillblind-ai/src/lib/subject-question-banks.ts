@@ -1597,40 +1597,457 @@ export const CN_DEPENDENCIES: ConceptDependency[] = [
   },
 ];
 
+// ==========================================
+// 5. MACHINE LEARNING & AI (20 Questions)
+// ==========================================
+export const ML_TOPICS: Topic[] = [
+  { id: "top-ml-sup", subject_id: "subj-ml-105", name: "Supervised Learning & Regression", difficulty_level: "beginner", order_index: 1, created_at: "2026-10-01T09:00:00Z" },
+  { id: "top-ml-bv", subject_id: "subj-ml-105", name: "Bias-Variance Tradeoff & Overfitting", difficulty_level: "intermediate", order_index: 2, created_at: "2026-10-01T09:00:00Z" },
+  { id: "top-ml-opt", subject_id: "subj-ml-105", name: "Gradient Descent & Loss Optimization", difficulty_level: "intermediate", order_index: 3, created_at: "2026-10-01T09:00:00Z" },
+  { id: "top-ml-eval", subject_id: "subj-ml-105", name: "Classification Metrics & Validation", difficulty_level: "intermediate", order_index: 4, created_at: "2026-10-01T09:00:00Z" },
+  { id: "top-ml-nn", subject_id: "subj-ml-105", name: "Neural Networks & Backpropagation", difficulty_level: "advanced", order_index: 5, created_at: "2026-10-01T09:00:00Z" },
+];
+
+export const ML_QUESTIONS: QuizQuestion[] = [
+  {
+    id: "q-ml-01",
+    topic_id: "top-ml-sup",
+    question_type: "multiple_choice",
+    difficulty: "easy",
+    question_text: "What fundamentally distinguishes Supervised Learning from Unsupervised Learning?",
+    options: [
+      "Supervised learning trains on input features paired with ground-truth target labels",
+      "Supervised learning does not calculate error loss during training",
+      "Supervised learning can only process discrete categorical variables",
+      "Supervised learning requires clustering algorithms like K-Means"
+    ],
+    correct_answer: "Supervised learning trains on input features paired with ground-truth target labels",
+    explanation: "Supervised learning algorithms map an input x to an output y using labeled training pairs (x, y).",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Pattern Recognition and Machine Learning (Bishop)", page_number: 3, excerpt: "In supervised learning, the training data comprises examples of the input vectors along with their corresponding target vectors." }]
+  },
+  {
+    id: "q-ml-02",
+    topic_id: "top-ml-bv",
+    question_type: "multiple_choice",
+    difficulty: "medium",
+    question_text: "A machine learning model achieves 99.4% accuracy on training data but drops to 61.2% accuracy on the test set. What error phenomenon is occurring?",
+    options: [
+      "High Variance (Overfitting): The model learned noise and idiosyncratic details of the training set",
+      "High Bias (Underfitting): The model is too simplistic to capture the underlying pattern",
+      "Data Leakage from test set to training set",
+      "Vanishing Gradient during backpropagation"
+    ],
+    correct_answer: "High Variance (Overfitting): The model learned noise and idiosyncratic details of the training set",
+    explanation: "A massive gap between training accuracy and test accuracy is the hallmark of overfitting (high variance).",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Deep Learning (Goodfellow)", page_number: 110, excerpt: "Overfitting occurs when the gap between the training error and test error is too large." }]
+  },
+  {
+    id: "q-ml-03",
+    topic_id: "top-ml-opt",
+    question_type: "multiple_choice",
+    difficulty: "medium",
+    question_text: "What happens during gradient descent if the learning rate (alpha) is chosen to be excessively large?",
+    options: [
+      "The parameter updates overshoot the local/global minimum, causing loss to oscillate or diverge",
+      "The model takes millions of iterations to converge to the minimum",
+      "The gradients permanently become zero due to vanishing gradients",
+      "The loss function is converted into an analytical closed-form solution"
+    ],
+    correct_answer: "The parameter updates overshoot the local/global minimum, causing loss to oscillate or diverge",
+    explanation: "An excessively large learning rate causes updates to step past the valley minimum, frequently diverging toward infinity.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Machine Learning (Tom Mitchell)", page_number: 89, excerpt: "If the step size is too large, gradient descent can overshoot the minimum and fail to converge." }]
+  },
+  {
+    id: "q-ml-04",
+    topic_id: "top-ml-bv",
+    question_type: "multiple_choice",
+    difficulty: "medium",
+    question_text: "How does L1 Regularization (Lasso) differ from L2 Regularization (Ridge) regarding feature selection?",
+    options: [
+      "L1 regularization drives coefficients of non-informative features strictly to zero, yielding sparse models",
+      "L2 regularization drives weights strictly to zero, while L1 keeps them small",
+      "L1 regularization only applies to classification, while L2 only applies to regression",
+      "L1 regularization squares the weights, while L2 takes the absolute value"
+    ],
+    correct_answer: "L1 regularization drives coefficients of non-informative features strictly to zero, yielding sparse models",
+    explanation: "Because of the sharp corners of the L1 diamond constraint, optimal loss solutions frequently intersect axes, zeroing out weights.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "The Elements of Statistical Learning (Hastie)", page_number: 68, excerpt: "L1 penalty (Lasso) causes some coefficients to be exactly zero, performing continuous feature selection." }]
+  },
+  {
+    id: "q-ml-05",
+    topic_id: "top-ml-eval",
+    question_type: "multiple_choice",
+    difficulty: "medium",
+    question_text: "In rare disease screening where 99.9% of patients are healthy, why is raw classification accuracy an invalid evaluation metric?",
+    options: [
+      "A trivial model that predicts 'healthy' for everyone achieves 99.9% accuracy while finding zero infected patients",
+      "Accuracy cannot be calculated when classes are unbalanced",
+      "Accuracy always penalizes False Negatives higher than False Positives",
+      "Accuracy is mathematically incompatible with sigmoid outputs"
+    ],
+    correct_answer: "A trivial model that predicts 'healthy' for everyone achieves 99.9% accuracy while finding zero infected patients",
+    explanation: "The accuracy paradox: on imbalanced data, high accuracy is trivial by predicting only the majority class. Precision and Recall are mandatory.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Hands-On Machine Learning (Géron)", page_number: 85, excerpt: "Accuracy is generally not the preferred performance measure for classifiers, especially when dealing with skewed datasets." }]
+  },
+  {
+    id: "q-ml-06",
+    topic_id: "top-ml-eval",
+    question_type: "multiple_choice",
+    difficulty: "hard",
+    question_text: "Which metric represents the harmonic mean of Precision and Recall?",
+    options: [
+      "F1-Score",
+      "ROC-AUC",
+      "Mean Absolute Error (MAE)",
+      "Cohen's Kappa"
+    ],
+    correct_answer: "F1-Score",
+    explanation: "F1 = 2 * (Precision * Recall) / (Precision + Recall). The harmonic mean gives high weight to low values, ensuring both metrics are balanced.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Pattern Recognition and Machine Learning", page_number: 140, excerpt: "The F1 measure is the harmonic mean of precision and recall." }]
+  },
+  {
+    id: "q-ml-07",
+    topic_id: "top-ml-sup",
+    question_type: "multiple_choice",
+    difficulty: "medium",
+    question_text: "What splitting criterion is used in CART decision trees to evaluate the impurity of candidate node splits?",
+    options: [
+      "Gini Impurity",
+      "Euclidean Distance",
+      "Cosine Similarity",
+      "Mahalanobis Distance"
+    ],
+    correct_answer: "Gini Impurity",
+    explanation: "CART (Classification and Regression Trees) uses Gini Impurity (or Information Gain via Entropy) to measure label purity at each split.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Introduction to Statistical Learning (James et al.)", page_number: 312, excerpt: "Gini index is a measure of total variance across the K classes, measuring node purity." }]
+  },
+  {
+    id: "q-ml-08",
+    topic_id: "top-ml-sup",
+    question_type: "multiple_choice",
+    difficulty: "hard",
+    question_text: "Why do Random Forests outperform individual deep decision trees on test sets?",
+    options: [
+      "Bagging (bootstrap aggregation) and random feature subsets decorrelate the trees, drastically reducing model variance without increasing bias",
+      "Random Forests eliminate the need for training labels",
+      "Random Forests convert non-linear boundaries into linear hyperplanes",
+      "Random Forests use gradient descent instead of recursive binary splitting"
+    ],
+    correct_answer: "Bagging (bootstrap aggregation) and random feature subsets decorrelate the trees, drastically reducing model variance without increasing bias",
+    explanation: "Averaging decorrelated trees reduces variance by 1/B while maintaining the low bias of deep decision trees.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "The Elements of Statistical Learning", page_number: 587, excerpt: "Random forests reduce the variance of an estimated prediction function by averaging trees grown on bootstrap samples." }]
+  },
+  {
+    id: "q-ml-09",
+    topic_id: "top-ml-nn",
+    question_type: "multiple_choice",
+    difficulty: "hard",
+    question_text: "In deep neural networks, what mathematical operation enables the Backpropagation algorithm to compute partial derivatives of loss with respect to early layer weights?",
+    options: [
+      "The Calculus Chain Rule",
+      "Fourier Transformation",
+      "Gram-Schmidt Orthogonalization",
+      "Laplace Approximation"
+    ],
+    correct_answer: "The Calculus Chain Rule",
+    explanation: "Backpropagation is a dynamic programming application of the multivariate chain rule: dL/dw = (dL/dy) * (dy/dz) * (dz/dw).",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Deep Learning (Goodfellow)", page_number: 200, excerpt: "The back-propagation algorithm applies the chain rule of calculus to compute derivatives of a scalar cost with respect to all parameters." }]
+  },
+  {
+    id: "q-ml-10",
+    topic_id: "top-ml-nn",
+    question_type: "multiple_choice",
+    difficulty: "hard",
+    question_text: "Why did the Rectified Linear Unit (ReLU: f(x) = max(0, x)) replace the Sigmoid function as the standard activation in hidden layers of deep networks?",
+    options: [
+      "ReLU maintains a constant derivative of 1 for positive inputs, eliminating the vanishing gradient problem during backpropagation",
+      "ReLU bounds all outputs between 0 and 1",
+      "ReLU is infinitely differentiable everywhere including at zero",
+      "ReLU automatically normalizes input mini-batches"
+    ],
+    correct_answer: "ReLU maintains a constant derivative of 1 for positive inputs, eliminating the vanishing gradient problem during backpropagation",
+    explanation: "Sigmoid derivatives max out at 0.25 and saturate near 0 for extreme values, causing gradients to vanish exponentially through layers.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Deep Learning (Goodfellow)", page_number: 174, excerpt: "Rectified linear units are much easier to train because their derivative remains 1 over a large range." }]
+  },
+  {
+    id: "q-ml-11",
+    topic_id: "top-ml-opt",
+    question_type: "multiple_choice",
+    difficulty: "medium",
+    question_text: "What loss function is mathematically appropriate for training a binary classification model outputting probabilities via a Sigmoid activation?",
+    options: [
+      "Binary Cross-Entropy (Log Loss)",
+      "Mean Squared Error (MSE)",
+      "Hinge Loss",
+      "Kullback-Leibler Divergence"
+    ],
+    correct_answer: "Binary Cross-Entropy (Log Loss)",
+    explanation: "Cross-entropy loss corresponds to the negative log-likelihood under a Bernoulli distribution and yields convex optimization with Sigmoid.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Pattern Recognition and Machine Learning", page_number: 206, excerpt: "For binary classification, the cross-entropy error function gives a convex loss landscape when paired with logistic sigmoid." }]
+  },
+  {
+    id: "q-ml-12",
+    topic_id: "top-ml-eval",
+    question_type: "multiple_choice",
+    difficulty: "medium",
+    question_text: "In K-Fold Cross-Validation, if K = 5 on a dataset of 1000 samples, how many samples are used for training and validation in each fold iteration?",
+    options: [
+      "800 samples for training, 200 samples for validation",
+      "500 samples for training, 500 samples for validation",
+      "900 samples for training, 100 samples for validation",
+      "1000 samples for training, 200 samples for validation"
+    ],
+    correct_answer: "800 samples for training, 200 samples for validation",
+    explanation: "With K=5, 1/5th (20%) is held out for validation (200 samples) and 4/5ths (800 samples) are used to fit the model.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Introduction to Statistical Learning", page_number: 181, excerpt: "In k-fold cross-validation, the data is divided into k equal parts; k-1 parts are used for training and 1 for validation." }]
+  },
+  {
+    id: "q-ml-13",
+    topic_id: "top-ml-sup",
+    question_type: "multiple_choice",
+    difficulty: "medium",
+    question_text: "What is the primary objective of Support Vector Machines (SVM) when finding a decision boundary for linearly separable classes?",
+    options: [
+      "Maximize the geometric margin between the separating hyperplane and the nearest training data points (support vectors)",
+      "Minimize the number of misclassified points while keeping weights negative",
+      "Construct orthogonal decision trees using information gain",
+      "Cluster training samples based on Mahalanobis distance"
+    ],
+    correct_answer: "Maximize the geometric margin between the separating hyperplane and the nearest training data points (support vectors)",
+    explanation: "SVM is a maximum-margin classifier. Maximizing margin 2/||w|| minimizes generalization error bounds.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Pattern Recognition and Machine Learning", page_number: 326, excerpt: "The support vector machine searches for the decision boundary with the largest margin to the training points." }]
+  },
+  {
+    id: "q-ml-14",
+    topic_id: "top-ml-sup",
+    question_type: "multiple_choice",
+    difficulty: "medium",
+    question_text: "What technique allows an SVM to classify non-linearly separable data in input space without explicitly computing high-dimensional coordinate transformations?",
+    options: [
+      "The Kernel Trick (e.g., RBF Kernel: K(x, z) = exp(-gamma * ||x - z||^2))",
+      "Stochastic Gradient Descent",
+      "Principal Component Analysis",
+      "Batch Normalization"
+    ],
+    correct_answer: "The Kernel Trick (e.g., RBF Kernel: K(x, z) = exp(-gamma * ||x - z||^2))",
+    explanation: "The kernel trick evaluates dot products in high-dimensional feature space directly in input space via a Mercer kernel function.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "The Elements of Statistical Learning", page_number: 423, excerpt: "The kernel property allows us to compute inner products in high dimensions without ever constructing the transformation explicitly." }]
+  },
+  {
+    id: "q-ml-15",
+    topic_id: "top-ml-opt",
+    question_type: "multiple_choice",
+    difficulty: "hard",
+    question_text: "What distinguishes Stochastic Gradient Descent (SGD) from Batch Gradient Descent?",
+    options: [
+      "SGD updates model parameters after evaluating each individual sample, making noisy but computationally fast updates",
+      "Batch gradient descent computes gradients on random subsets of size 32",
+      "SGD calculates the exact analytical closed-form inversion of the Gram matrix",
+      "SGD cannot escape saddle points and local minima"
+    ],
+    correct_answer: "SGD updates model parameters after evaluating each individual sample, making noisy but computationally fast updates",
+    explanation: "Batch GD scans the entire dataset for one step. SGD steps per sample, allowing online updates and escaping shallow local minima.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Deep Learning (Goodfellow)", page_number: 149, excerpt: "Stochastic gradient descent updates parameters using a single training example rather than the complete dataset." }]
+  },
+  {
+    id: "q-ml-16",
+    topic_id: "top-ml-bv",
+    question_type: "multiple_choice",
+    difficulty: "hard",
+    question_text: "During neural network training, how does Dropout regularization prevent co-adaptation of hidden unit features?",
+    options: [
+      "Randomly deactivating a fraction (e.g., p = 0.5) of hidden neurons during each forward/backward training pass",
+      "Adding Gaussian noise to the test dataset",
+      "Dropping the lowest learning rate when validation loss plateaus",
+      "Pruning 50% of the layers from the network architecture"
+    ],
+    correct_answer: "Randomly deactivating a fraction (e.g., p = 0.5) of hidden neurons during each forward/backward training pass",
+    explanation: "Dropout approximates training an exponential ensemble of thinned networks, preventing neurons from relying on specific companion activations.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Deep Learning (Goodfellow)", page_number: 255, excerpt: "Dropout trains an ensemble consisting of all sub-networks that can be formed by removing non-output units." }]
+  },
+  {
+    id: "q-ml-17",
+    topic_id: "top-ml-sup",
+    question_type: "multiple_choice",
+    difficulty: "medium",
+    question_text: "In K-Means clustering, what criterion does the algorithm iteratively minimize?",
+    options: [
+      "Within-Cluster Sum of Squares (WCSS / Inertia): sum of squared Euclidean distances between points and their assigned centroid",
+      "The correlation coefficient between input features",
+      "The classification cross-entropy between clusters",
+      "The maximum margin between cluster convex hulls"
+    ],
+    correct_answer: "Within-Cluster Sum of Squares (WCSS / Inertia): sum of squared Euclidean distances between points and their assigned centroid",
+    explanation: "K-Means alternates between assignment (assign each point to closest centroid) and update (compute new centroids as cluster means).",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Pattern Recognition and Machine Learning", page_number: 424, excerpt: "The goal of K-means is to minimize the distortion measure representing the distance of each data point to its assigned center." }]
+  },
+  {
+    id: "q-ml-18",
+    topic_id: "top-ml-eval",
+    question_type: "multiple_choice",
+    difficulty: "medium",
+    question_text: "In an ROC (Receiver Operating Characteristic) curve, what metrics are plotted on the Y-axis and X-axis respectively across varying decision thresholds?",
+    options: [
+      "Y-axis: True Positive Rate (Sensitivity); X-axis: False Positive Rate (1 - Specificity)",
+      "Y-axis: Precision; X-axis: Accuracy",
+      "Y-axis: Test Loss; X-axis: Training Epochs",
+      "Y-axis: Variance; X-axis: Bias"
+    ],
+    correct_answer: "Y-axis: True Positive Rate (Sensitivity); X-axis: False Positive Rate (1 - Specificity)",
+    explanation: "An ROC curve plots TPR vs FPR across all probability classification thresholds. An ideal classifier achieves AUC = 1.0.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Hands-On Machine Learning (Géron)", page_number: 91, excerpt: "The ROC curve plots the true positive rate against the false positive rate." }]
+  },
+  {
+    id: "q-ml-19",
+    topic_id: "top-ml-nn",
+    question_type: "multiple_choice",
+    difficulty: "hard",
+    question_text: "In Convolutional Neural Networks (CNNs), what is the function of MaxPooling layers?",
+    options: [
+      "Reduce spatial dimensions (width and height), reducing computation and providing translation invariance",
+      "Increase the number of color channels in the image",
+      "Calculate the softmax probability distribution across classes",
+      "Perform gradient descent optimization on convolutional kernels"
+    ],
+    correct_answer: "Reduce spatial dimensions (width and height), reducing computation and providing translation invariance",
+    explanation: "Pooling layers downsample feature maps by extracting the maximum activation within a sliding window, yielding spatial robustness.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Deep Learning (Goodfellow)", page_number: 335, excerpt: "A pooling function replaces the output of the net at a certain location with a summary statistic of nearby outputs." }]
+  },
+  {
+    id: "q-ml-20",
+    topic_id: "top-ml-opt",
+    question_type: "short_answer",
+    difficulty: "hard",
+    question_text: "State the mathematical formula for the Adam optimizer update: why does Adam combine both momentum (first moment) and RMSProp (second moment)?",
+    options: [],
+    correct_answer: "Adam computes exponential moving averages of both the gradients (m_t = beta1*m + (1-beta1)*g) for momentum and the squared gradients (v_t = beta2*v + (1-beta2)*g^2) for adaptive per-parameter learning rate scaling, corrected for zero-initialization bias.",
+    explanation: "Adam combines the velocity advantage of momentum with the adaptive per-coordinate scaling of RMSProp, making it resilient to noisy or sparse gradients.",
+    source_chunk_ids: [],
+    citations: [{ source_title: "Adam: A Method for Stochastic Optimization (Kingma & Ba)", page_number: 1, excerpt: "Adam combines the advantages of AdaGrad (which works well with sparse gradients) and RMSProp (which works well in on-line settings)." }]
+  }
+];
+
+export const ML_DEPENDENCIES: ConceptDependency[] = [
+  {
+    id: "dep-ml-01",
+    subject_id: "subj-ml-105",
+    prerequisite_topic_id: "top-ml-sup",
+    dependent_topic_id: "top-ml-bv",
+    relationship_type: "strict_prerequisite",
+    confidence: 0.98,
+    source_evidence: "Understanding training loss vs validation loss is mandatory before analyzing bias and variance.",
+    user_verified: true,
+    created_at: "2026-10-02T10:05:00Z",
+  },
+  {
+    id: "dep-ml-02",
+    subject_id: "subj-ml-105",
+    prerequisite_topic_id: "top-ml-opt",
+    dependent_topic_id: "top-ml-nn",
+    relationship_type: "strict_prerequisite",
+    confidence: 0.96,
+    source_evidence: "Backpropagation is the multi-layer application of gradient descent via the calculus chain rule.",
+    user_verified: true,
+    created_at: "2026-10-02T10:05:00Z",
+  },
+  {
+    id: "dep-ml-03",
+    subject_id: "subj-ml-105",
+    prerequisite_topic_id: "top-ml-bv",
+    dependent_topic_id: "top-ml-eval",
+    relationship_type: "strict_prerequisite",
+    confidence: 0.95,
+    source_evidence: "Cross-validation and F1 evaluation directly measure high-variance generalization error.",
+    user_verified: true,
+    created_at: "2026-10-02T10:05:00Z",
+  },
+];
+
 export const ALL_DEPENDENCIES: ConceptDependency[] = [
   ...DSA_DEPENDENCIES,
   ...DBMS_DEPENDENCIES,
   ...OS_DEPENDENCIES,
   ...CN_DEPENDENCIES,
+  ...ML_DEPENDENCIES,
 ];
 
-// Helper to get questions for any subject
-export function getQuestionsForSubject(subjectId: string): QuizQuestion[] {
-  switch (subjectId) {
-    case "subj-dsa-101":
-      return DSA_QUESTIONS;
-    case "subj-dbms-102":
-      return DBMS_QUESTIONS;
-    case "subj-os-103":
-      return OS_QUESTIONS;
-    case "subj-cn-104":
-      return CN_QUESTIONS;
-    default:
-      return DSA_QUESTIONS;
+// Helper to get questions for any subject with robust matching by ID, code, or name
+export function getQuestionsForSubject(subjectIdentifier: string): QuizQuestion[] {
+  const query = (subjectIdentifier || "").toLowerCase().trim();
+
+  if (
+    query.includes("dbms") ||
+    query.includes("database") ||
+    query.includes("cs301") ||
+    query.includes("102")
+  ) {
+    return DBMS_QUESTIONS;
   }
+  if (
+    query.includes("os") ||
+    query.includes("operating") ||
+    query.includes("cs302") ||
+    query.includes("103")
+  ) {
+    return OS_QUESTIONS;
+  }
+  if (
+    query.includes("cn") ||
+    query.includes("network") ||
+    query.includes("cs401") ||
+    query.includes("104")
+  ) {
+    return CN_QUESTIONS;
+  }
+  if (
+    query.includes("ml") ||
+    query.includes("machine") ||
+    query.includes("ai") ||
+    query.includes("cs501") ||
+    query.includes("105")
+  ) {
+    return ML_QUESTIONS;
+  }
+
+  // Default to Data Structures and Algorithms
+  return DSA_QUESTIONS;
 }
 
-export function getDependenciesForSubject(subjectId: string): ConceptDependency[] {
-  switch (subjectId) {
-    case "subj-dsa-101":
-      return DSA_DEPENDENCIES;
-    case "subj-dbms-102":
-      return DBMS_DEPENDENCIES;
-    case "subj-os-103":
-      return OS_DEPENDENCIES;
-    case "subj-cn-104":
-      return CN_DEPENDENCIES;
-    default:
-      return DSA_DEPENDENCIES;
+export function getDependenciesForSubject(subjectIdentifier: string): ConceptDependency[] {
+  const query = (subjectIdentifier || "").toLowerCase().trim();
+
+  if (query.includes("dbms") || query.includes("database") || query.includes("102")) {
+    return DBMS_DEPENDENCIES;
   }
+  if (query.includes("os") || query.includes("operating") || query.includes("103")) {
+    return OS_DEPENDENCIES;
+  }
+  if (query.includes("cn") || query.includes("network") || query.includes("104")) {
+    return CN_DEPENDENCIES;
+  }
+  if (query.includes("ml") || query.includes("machine") || query.includes("105")) {
+    return ML_DEPENDENCIES;
+  }
+
+  return DSA_DEPENDENCIES;
 }
+

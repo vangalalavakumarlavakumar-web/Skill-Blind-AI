@@ -40,11 +40,14 @@ import {
   DBMS_QUESTIONS,
   OS_QUESTIONS,
   CN_QUESTIONS,
+  ML_QUESTIONS,
   DSA_TOPICS,
   DBMS_TOPICS,
   OS_TOPICS,
   CN_TOPICS,
+  ML_TOPICS,
   ALL_DEPENDENCIES,
+  getQuestionsForSubject,
 } from "./subject-question-banks";
 
 export interface SkillBlindState {
@@ -79,7 +82,7 @@ export function createInitialQuizzes(): Quiz[] {
       title: "Comprehensive Diagnostic Assessment: Data Structures & Algorithms",
       description: "20 in-depth diagnostic items evaluating recursion stack frames, trees, search, sorting, graphs, and dynamic programming.",
       topic_ids: DSA_TOPICS.map((t) => t.id),
-      questions_count: DSA_QUESTIONS.length,
+      questions_count: 20,
       is_transfer_assessment: false,
       created_at: "2026-10-24T10:00:00Z",
       questions: DSA_QUESTIONS,
@@ -91,7 +94,7 @@ export function createInitialQuizzes(): Quiz[] {
       title: "Comprehensive Diagnostic Assessment: Database Management Systems",
       description: "20 diagnostic items covering ACID properties, 1NF-BCNF normalization, B+ Tree indexing, and query optimization.",
       topic_ids: DBMS_TOPICS.map((t) => t.id),
-      questions_count: DBMS_QUESTIONS.length,
+      questions_count: 20,
       is_transfer_assessment: false,
       created_at: "2026-10-24T10:00:00Z",
       questions: DBMS_QUESTIONS,
@@ -103,7 +106,7 @@ export function createInitialQuizzes(): Quiz[] {
       title: "Comprehensive Diagnostic Assessment: Operating Systems",
       description: "20 diagnostic questions analyzing process scheduling, critical section synchronization, page faults, and deadlocks.",
       topic_ids: OS_TOPICS.map((t) => t.id),
-      questions_count: OS_QUESTIONS.length,
+      questions_count: 20,
       is_transfer_assessment: false,
       created_at: "2026-10-24T10:00:00Z",
       questions: OS_QUESTIONS,
@@ -115,10 +118,22 @@ export function createInitialQuizzes(): Quiz[] {
       title: "Comprehensive Diagnostic Assessment: Computer Networks",
       description: "20 diagnostic items testing TCP/IP 3-way handshakes, CIDR subnetting, congestion control, and routing protocols.",
       topic_ids: CN_TOPICS.map((t) => t.id),
-      questions_count: CN_QUESTIONS.length,
+      questions_count: 20,
       is_transfer_assessment: false,
       created_at: "2026-10-24T10:00:00Z",
       questions: CN_QUESTIONS,
+    },
+    {
+      id: "quiz-ml-20",
+      subject_id: "subj-ml-105",
+      user_id: "demo-user-101",
+      title: "Comprehensive Diagnostic Assessment: Machine Learning & AI",
+      description: "20 diagnostic items testing bias-variance, gradient descent, neural backpropagation, classification metrics, and regularization.",
+      topic_ids: ML_TOPICS.map((t) => t.id),
+      questions_count: 20,
+      is_transfer_assessment: false,
+      created_at: "2026-10-24T10:00:00Z",
+      questions: ML_QUESTIONS,
     },
   ];
 }
@@ -134,8 +149,8 @@ export function getInitialState(): SkillBlindState {
       activeSubjectId: ALL_SUBJECTS[0].id,
       materials: DEMO_MATERIALS,
       chunks: DEMO_CHUNKS,
-      topics: [...DSA_TOPICS, ...DBMS_TOPICS, ...OS_TOPICS, ...CN_TOPICS],
-      dependencies: DEMO_DEPENDENCIES,
+      topics: [...DSA_TOPICS, ...DBMS_TOPICS, ...OS_TOPICS, ...CN_TOPICS, ...ML_TOPICS],
+      dependencies: ALL_DEPENDENCIES,
       quizzes: initialQuizzes,
       attempts: [DEMO_ATTEMPT],
       mastery: DEMO_TOPIC_MASTERY,
@@ -153,21 +168,32 @@ export function getInitialState(): SkillBlindState {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
-      // Ensure subjects and 20 questions and dependencies are always populated
-      if (
-        !parsed.subjects ||
-        parsed.subjects.length < 4 ||
-        (parsed.quizzes[0]?.questions?.length || 0) < 10 ||
-        (parsed.dependencies?.length || 0) < 10
-      ) {
+      // Ensure subjects and dependencies are populated
+      if (!parsed.subjects || parsed.subjects.length < 5 || (parsed.dependencies?.length || 0) < 5) {
         parsed.subjects = ALL_SUBJECTS;
-        parsed.quizzes = initialQuizzes;
-        parsed.topics = [...DSA_TOPICS, ...DBMS_TOPICS, ...OS_TOPICS, ...CN_TOPICS];
+        parsed.topics = [...DSA_TOPICS, ...DBMS_TOPICS, ...OS_TOPICS, ...CN_TOPICS, ...ML_TOPICS];
         parsed.dependencies = ALL_DEPENDENCIES;
-        if (!parsed.activeSubjectId) parsed.activeSubjectId = ALL_SUBJECTS[0].id;
-        if (!parsed.subject) parsed.subject = ALL_SUBJECTS[0];
-        saveState(parsed);
       }
+
+      // Preserve activeSubjectId if set, otherwise default to first subject
+      if (!parsed.activeSubjectId) {
+        parsed.activeSubjectId = ALL_SUBJECTS[0].id;
+      }
+      const matchedSubject =
+        parsed.subjects.find((s: Subject) => s.id === parsed.activeSubjectId) || ALL_SUBJECTS[0];
+      parsed.subject = matchedSubject;
+
+      // Always dynamically restore the 20 questions for each quiz at runtime
+      parsed.quizzes = initialQuizzes.map((iq) => {
+        const stored = (parsed.quizzes || []).find((q: Quiz) => q.subject_id === iq.subject_id);
+        return {
+          ...iq,
+          ...(stored || {}),
+          questions: getQuestionsForSubject(iq.subject_id),
+          questions_count: 20,
+        };
+      });
+
       return parsed;
     }
   } catch (e) {

@@ -50,17 +50,29 @@ export default function QuizPage() {
   useEffect(() => {
     const s = getInitialState();
     setState(s);
-    const subId = s.activeSubjectId || s.subject.id;
+    const subId = s.activeSubjectId || s.subject?.id || "subj-dsa-101";
     setActiveSubjectId(subId);
 
-    // Find quiz for current subject or fallback to questions bank
-    const subjectQuiz = s.quizzes.find((q) => q.subject_id === subId);
-    if (subjectQuiz && subjectQuiz.questions && subjectQuiz.questions.length >= 20) {
-      setActiveQuestions(subjectQuiz.questions);
-    } else {
-      const bank = getQuestionsForSubject(subId);
-      setActiveQuestions(bank);
-    }
+    // Directly load the 20 questions for this specific subject
+    const bank = getQuestionsForSubject(subId);
+    setActiveQuestions(bank);
+
+    const handleSubjectChangeExternal = () => {
+      const updated = getInitialState();
+      setState(updated);
+      const newSubId = updated.activeSubjectId || updated.subject?.id || "subj-dsa-101";
+      setActiveSubjectId(newSubId);
+      const newBank = getQuestionsForSubject(newSubId);
+      setActiveQuestions(newBank);
+      setCurrentIdx(0);
+      setSelectedOption("");
+      setShortAnswerText("");
+      setSubmittedAnswers([]);
+      setIsCompleted(false);
+    };
+
+    window.addEventListener("subjectChanged", handleSubjectChangeExternal);
+    return () => window.removeEventListener("subjectChanged", handleSubjectChangeExternal);
   }, []);
 
   const handleSubjectChange = (newSubjectId: string) => {
@@ -68,13 +80,9 @@ export default function QuizPage() {
     setState(updated);
     setActiveSubjectId(newSubjectId);
 
-    const subjectQuiz = updated.quizzes.find((q) => q.subject_id === newSubjectId);
-    if (subjectQuiz && subjectQuiz.questions && subjectQuiz.questions.length >= 20) {
-      setActiveQuestions(subjectQuiz.questions);
-    } else {
-      const bank = getQuestionsForSubject(newSubjectId);
-      setActiveQuestions(bank);
-    }
+    // Load distinct 20 questions for the selected subject
+    const bank = getQuestionsForSubject(newSubjectId);
+    setActiveQuestions(bank);
 
     // Reset quiz state
     setCurrentIdx(0);
@@ -82,6 +90,8 @@ export default function QuizPage() {
     setShortAnswerText("");
     setSubmittedAnswers([]);
     setIsCompleted(false);
+
+    window.dispatchEvent(new Event("subjectChanged"));
   };
 
   const currentQ = activeQuestions[currentIdx];
@@ -348,47 +358,52 @@ export default function QuizPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Subject Selector & Diagnostic Header */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-bold text-blue-700 uppercase tracking-wider bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
-              Departmental Diagnostic Engine
-            </span>
-            <span className="text-xs text-slate-500 font-medium">20-Item Benchmark</span>
-          </div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight mt-1.5 flex items-center gap-2">
-            <span>Diagnostic Assessment:</span>
-            <span className="text-blue-700">{currentSubject.name}</span>
-          </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Testing conceptual understanding, misconception patterns, and prerequisite dependencies.
-          </p>
-        </div>
-
-        {/* Subject Dropdown & PDF Upload Action */}
-        <div className="flex items-center gap-2.5">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
-            <BookOpen className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-            <select
-              value={activeSubjectId}
-              onChange={(e) => handleSubjectChange(e.target.value)}
-              className="bg-transparent font-bold text-slate-900 text-xs outline-none cursor-pointer"
-            >
-              {state.subjects.map((sub) => (
-                <option key={sub.id} value={sub.id}>
-                  {sub.code ? `${sub.code}: ` : ""}{sub.name}
-                </option>
-              ))}
-            </select>
+      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+              <span>Diagnostic Assessment:</span>
+              <span className="text-blue-700">{currentSubject.name}</span>
+            </h1>
+            <p className="text-xs text-slate-500 mt-1">
+              Select any curriculum subject below to take its dedicated 20-question diagnostic evaluation.
+            </p>
           </div>
 
           <button
             onClick={() => setShowUploadModal(true)}
-            className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold flex items-center gap-1.5 shadow-xs transition-colors shrink-0"
+            className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold flex items-center gap-1.5 shadow-xs transition-colors shrink-0 self-start md:self-auto"
           >
             <Upload className="w-3.5 h-3.5" />
-            <span>Upload PDF (20 Qs)</span>
+            <span>Upload Syllabus PDF</span>
           </button>
+        </div>
+
+        {/* Quick Subject Tabs to switch questions seamlessly */}
+        <div className="flex items-center gap-2 overflow-x-auto pt-2 border-t border-slate-100 pb-1">
+          {state.subjects.map((sub) => {
+            const isActive = sub.id === activeSubjectId;
+            return (
+              <button
+                key={sub.id}
+                onClick={() => handleSubjectChange(sub.id)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 flex items-center gap-1.5 ${
+                  isActive
+                    ? "bg-blue-600 text-white shadow-xs"
+                    : "bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200"
+                }`}
+              >
+                <span>{sub.code ? `${sub.code}: ` : ""}{sub.name}</span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                    isActive ? "bg-blue-800 text-blue-100" : "bg-white text-slate-500 border border-slate-200"
+                  }`}
+                >
+                  20 Qs
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
