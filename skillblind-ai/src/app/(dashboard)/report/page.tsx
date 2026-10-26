@@ -41,7 +41,7 @@ export default function ReportPage() {
       {/* Report Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
-          <div className="flex items-center gap-2 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-teal-600 text-xs font-bold uppercase tracking-wider mb-1">
             <GraduationCap className="w-4 h-4" />
             <span>Comprehensive Student Evaluation</span>
           </div>
@@ -49,10 +49,10 @@ export default function ReportPage() {
             Knowledge Gap Diagnostic Report
           </h1>
           <div className="text-xs text-slate-500 mt-1 flex flex-wrap items-center gap-3">
-            <span>Student: <strong>{user?.full_name || "Alex Vance"}</strong></span>
-            <span>•</span>
+            <span>Student: <strong>{user?.full_name || "Lava Kumar"}</strong></span>
+            <span>â€¢</span>
             <span>Subject: <strong>{subject.name} ({subject.code})</strong></span>
-            <span>•</span>
+            <span>â€¢</span>
             <span>Date: <strong>{new Date().toLocaleDateString()}</strong></span>
           </div>
         </div>
@@ -172,7 +172,7 @@ export default function ReportPage() {
               <p className="text-[11px] text-slate-800 leading-relaxed font-medium">
                 {rc.hypothesized_cause}
               </p>
-              <div className="text-[11px] text-indigo-700">
+              <div className="text-[11px] text-teal-700">
                 <strong>Recommended Intervention:</strong> {rc.recommended_intervention}
               </div>
             </div>
@@ -183,7 +183,7 @@ export default function ReportPage() {
       {/* Category 5: Predicted Learning Risks */}
       <section className="space-y-4">
         <div className="flex items-center gap-2">
-          <TrendingUp className="w-4 h-4 text-indigo-600" />
+          <TrendingUp className="w-4 h-4 text-teal-600" />
           <h2 className="text-base font-bold text-slate-900">5. Predicted Downstream Learning Risks</h2>
         </div>
 

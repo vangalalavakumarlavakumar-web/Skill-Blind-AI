@@ -20,8 +20,8 @@ import {
 
 export const DEMO_USER: Profile = {
   id: "demo-user-101",
-  email: "demo.student@skillblind.ai",
-  full_name: "Alex Vance (Demo Student)",
+  email: "lava.kumar@skillblind.ai",
+  full_name: "Lava Kumar",
   role: "student",
   target_score: 85,
   available_hours_per_day: 2,

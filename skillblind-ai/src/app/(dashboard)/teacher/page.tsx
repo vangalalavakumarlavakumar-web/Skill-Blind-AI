@@ -48,7 +48,7 @@ export default function TeacherPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-teal-600 text-xs font-bold uppercase tracking-wider mb-1">
             <Users className="w-4 h-4" />
             <span>Classroom &amp; Cohort Extension</span>
           </div>
@@ -60,7 +60,7 @@ export default function TeacherPage() {
 
         <button
           onClick={() => alert("Classroom creation modal: Invite code generated automatically.")}
-          className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs flex items-center gap-2 shadow-sm self-start sm:self-auto transition-colors"
+          className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs flex items-center gap-2 shadow-sm self-start sm:self-auto transition-colors"
         >
           <PlusCircle className="w-3.5 h-3.5" />
           <span>Create New Class</span>
@@ -86,10 +86,10 @@ export default function TeacherPage() {
                 <span className="text-[10px] uppercase font-bold text-slate-400">Class Cohort</span>
                 <h3 className="font-bold text-slate-900 text-base mt-0.5">{c.name}</h3>
               </div>
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 border border-indigo-100 text-xs font-mono font-bold text-indigo-700">
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-teal-50 border border-teal-100 text-xs font-mono font-bold text-teal-700">
                 <span>{c.inviteCode}</span>
                 <button onClick={() => handleCopy(c.inviteCode)} title="Copy Invite Code">
-                  {copied ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-indigo-500 hover:text-indigo-700" />}
+                  {copied ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-teal-500 hover:text-teal-700" />}
                 </button>
               </div>
             </div>
@@ -103,7 +103,7 @@ export default function TeacherPage() {
 
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-100">
                 <div className="text-[10px] uppercase font-bold text-slate-400">Class Average Mastery</div>
-                <div className="text-xl font-bold text-indigo-600 mt-1">{c.avgMastery}%</div>
+                <div className="text-xl font-bold text-teal-600 mt-1">{c.avgMastery}%</div>
               </div>
             </div>
 
@@ -132,7 +132,7 @@ export default function TeacherPage() {
                 onClick={() => alert(`Class-wide remediation session scheduled for ${c.name} on ${c.criticalBottleneck}.`)}
                 className="px-3.5 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-900 text-white font-semibold text-xs flex items-center gap-1.5 transition-colors"
               >
-                <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+                <Sparkles className="w-3.5 h-3.5 text-teal-400" />
                 <span>Schedule Class Revision Session</span>
               </button>
             </div>

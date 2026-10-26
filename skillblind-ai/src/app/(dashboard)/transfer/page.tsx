@@ -140,7 +140,7 @@ export default function TransferPage() {
       {/* Novel Context Challenge Form */}
       <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
         <div className="pb-4 border-b border-slate-100">
-          <div className="inline-block px-2.5 py-1 rounded bg-indigo-50 text-indigo-700 text-xs font-bold mb-2">
+          <div className="inline-block px-2.5 py-1 rounded bg-teal-50 text-teal-700 text-xs font-bold mb-2">
             Novel Application Context (Transfer Challenge)
           </div>
           <h3 className="text-base font-bold text-slate-900 leading-snug">
@@ -162,7 +162,7 @@ export default function TransferPage() {
               onChange={(e) => setStudentAnswer(e.target.value)}
               placeholder="1. Base Case: If the item is a regular file, return its size directly.&#10;2. Recursive Step: For each subdirectory, invoke calculateSize(subdir)...&#10;3. Stack Unwinding: Add child return values to total..."
               required
-              className="w-full p-3.5 rounded-xl border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-sans"
+              className="w-full p-3.5 rounded-xl border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500 font-sans"
             />
           </div>
 

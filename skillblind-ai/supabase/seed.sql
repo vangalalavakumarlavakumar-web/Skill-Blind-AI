@@ -4,7 +4,7 @@
 
 INSERT INTO profiles (id, email, full_name, role, target_score, available_hours_per_day, exam_date)
 VALUES 
-  ('00000000-0000-0000-0000-000000000101', 'demo.student@skillblind.ai', 'Alex Vance (Demo Student)', 'student', 85, 2.0, '2026-11-20')
+  ('00000000-0000-0000-0000-000000000101', 'lava.kumar@skillblind.ai', 'Lava Kumar', 'student', 85, 2.0, '2026-11-20')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO subjects (id, user_id, name, code, description, color)

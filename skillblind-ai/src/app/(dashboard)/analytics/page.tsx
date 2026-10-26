@@ -34,7 +34,7 @@ export default function AnalyticsPage() {
     <div className="space-y-8">
       {/* Page Header */}
       <div>
-        <div className="flex items-center gap-2 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-1">
+        <div className="flex items-center gap-2 text-teal-600 text-xs font-bold uppercase tracking-wider mb-1">
           <BarChart3 className="w-4 h-4" />
           <span>Longitudinal Performance Evidence</span>
         </div>
@@ -155,7 +155,7 @@ export default function AnalyticsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
           <div className="flex items-center gap-2 pb-4 border-b border-slate-100">
-            <Brain className="w-4 h-4 text-indigo-600" />
+            <Brain className="w-4 h-4 text-teal-600" />
             <h3 className="text-sm font-bold text-slate-900">Misconception Patterns Tracked</h3>
           </div>
 

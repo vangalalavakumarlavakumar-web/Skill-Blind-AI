@@ -3,13 +3,13 @@
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
-  --primary: #1e1b4b; /* deep navy / indigo */
-  --primary-accent: #4f46e5;
-  --primary-light: #e0e7ff;
+  --primary: #1e3a8a; /* Deep academic oxford blue */
+  --primary-accent: #2563eb;
+  --primary-light: #eff6ff;
   --card: #ffffff;
   --card-foreground: #0f172a;
   --border: #e2e8f0;
-  --ring: #4f46e5;
+  --ring: #2563eb;
 }
 
 body {
@@ -20,19 +20,16 @@ body {
   min-height: 100vh;
 }
 
-/* Glassmorphism and modern card styling */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+/* Institutional Clean Card Styling */
+.academic-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
 }
 
-.navy-gradient {
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
-}
-
-.indigo-glow {
-  box-shadow: 0 0 25px -5px rgba(79, 70, 229, 0.3);
+.navy-header {
+  background-color: #0f172a;
+  color: #ffffff;
 }
 
 /* Custom subtle scrollbar */
@@ -49,13 +46,4 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
-}
-
-@keyframes pulse-subtle {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.85; transform: scale(1.02); }
-}
-
-.animate-pulse-subtle {
-  animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

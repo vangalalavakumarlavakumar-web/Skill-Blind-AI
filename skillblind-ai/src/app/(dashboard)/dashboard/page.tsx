@@ -5,7 +5,6 @@ import Link from "next/link";
 import {
   Brain,
   Layers,
-  Sparkles,
   AlertTriangle,
   TrendingUp,
   FileCheck2,
@@ -16,12 +15,15 @@ import {
   Clock,
   HelpCircle,
   FileText,
+  Upload,
 } from "lucide-react";
 import { getInitialState, SkillBlindState } from "@/lib/storage";
 import ConceptGraphCanvas from "@/components/graph/concept-graph-canvas";
 import { buildConceptGraph } from "@/lib/services/concept-graph-service";
+import { useAuth } from "@/lib/auth-context";
 
 export default function DashboardPage() {
+  const { user } = useAuth();
   const [state, setState] = useState<SkillBlindState | null>(null);
 
   useEffect(() => {
@@ -31,12 +33,13 @@ export default function DashboardPage() {
   if (!state) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-slate-400 text-sm">Loading diagnostic intelligence...</div>
+        <div className="text-slate-400 text-sm">Loading curriculum diagnostic data...</div>
       </div>
     );
   }
 
   const {
+    subject,
     materials,
     topics,
     dependencies,
@@ -49,7 +52,16 @@ export default function DashboardPage() {
     attempts,
   } = state;
 
-  const graphData = buildConceptGraph(topics, dependencies, mastery);
+  const currentSubject = state.subjects?.find((s) => s.id === state.activeSubjectId) || subject;
+
+  // Filter topics and mastery for current subject
+  const subjectTopics = topics.filter((t) => t.subject_id === currentSubject.id);
+  const subjectDependencies = dependencies.filter((d) => d.subject_id === currentSubject.id);
+  const graphData = buildConceptGraph(
+    subjectTopics.length > 0 ? subjectTopics : topics,
+    subjectDependencies.length > 0 ? subjectDependencies : dependencies,
+    mastery
+  );
 
   // Computed summary metrics
   const weakConcepts = mastery.filter((m) => m.status === "weak");
@@ -62,33 +74,39 @@ export default function DashboardPage() {
   const verifiedLift = transferAssessments[0]?.improvement_delta || 0.6;
 
   return (
-    <div className="space-y-8">
-      {/* Top Banner / Callout */}
-      <div className="rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950 to-indigo-900 p-6 sm:p-8 text-white relative overflow-hidden shadow-lg shadow-indigo-950/20">
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-radial from-indigo-500/10 to-transparent pointer-events-none" />
-        <div className="relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold mb-3">
-            <Brain className="w-3.5 h-3.5" />
-            <span>Root-Cause Diagnostic Engine Active</span>
+    <div className="space-y-6">
+      {/* University Academic Header Banner */}
+      <div className="rounded-2xl bg-slate-900 border border-slate-800 p-6 sm:p-8 text-white relative overflow-hidden shadow-xs">
+        <div className="relative z-10 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-900/60 border border-blue-700/60 text-blue-300 text-xs font-semibold mb-3">
+            <BookOpen className="w-3.5 h-3.5 text-blue-400" />
+            <span>Curriculum Benchmark: {currentSubject.code ? `${currentSubject.code} — ` : ""}{currentSubject.name}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-            Welcome, Alex! Here is your Knowledge Gap Diagnostic.
+            Welcome, {state.user?.full_name?.split(" ")[0] || "Lava"} — Diagnostic Assessment Summary
           </h1>
-          <p className="text-xs sm:text-sm text-indigo-200 mt-2 leading-relaxed">
-            Your recent assessment revealed that errors in <strong className="text-white font-semibold">Tree Traversal</strong> stem from a foundational blindspot in <strong className="text-white font-semibold">Recursion Call Stacks</strong>.
+          <p className="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+            Formative diagnostic testing isolates underlying conceptual bottlenecks. In {currentSubject.name}, prerequisite gaps are traced across directed dependency graphs to prevent downstream exam failures.
           </p>
 
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <Link
               href="/quiz"
-              className="px-5 py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-semibold text-xs flex items-center gap-2 shadow-md transition-all"
+              className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs flex items-center gap-2 shadow-xs transition-colors"
             >
-              <Sparkles className="w-4 h-4" />
-              <span>Start Knowledge Diagnosis</span>
+              <HelpCircle className="w-4 h-4" />
+              <span>Take 20-Question Diagnostic Exam</span>
+            </Link>
+            <Link
+              href="/materials"
+              className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-xs border border-slate-700 flex items-center gap-1.5 transition-colors"
+            >
+              <Upload className="w-3.5 h-3.5" />
+              <span>Upload Subject PDF</span>
             </Link>
             <Link
               href="/diagnosis"
-              className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs border border-white/15 flex items-center gap-1.5 transition-colors"
+              className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-xs border border-slate-700 flex items-center gap-1.5 transition-colors"
             >
               <span>Inspect Root Causes</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -102,15 +120,15 @@ export default function DashboardPage() {
         {/* Study Materials */}
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between text-slate-500 text-xs font-medium">
-            <span>Course Materials</span>
-            <FileText className="w-4 h-4 text-indigo-600" />
+            <span>Course Documents</span>
+            <FileText className="w-4 h-4 text-blue-600" />
           </div>
           <div className="mt-3 flex items-baseline gap-2">
             <span className="text-2xl font-bold text-slate-900">{materials.length}</span>
-            <span className="text-[11px] text-slate-500">Processed</span>
+            <span className="text-[11px] text-slate-500">Indexed</span>
           </div>
-          <div className="mt-2 text-[11px] text-emerald-600 font-medium">
-            Syllabus, Ch 3 & Ch 5 RAG-indexed
+          <div className="mt-2 text-[11px] text-blue-700 font-medium">
+            Syllabi & Lecture Notes RAG-Store
           </div>
         </div>
 
@@ -152,28 +170,28 @@ export default function DashboardPage() {
           </div>
           <div className="mt-3 flex items-baseline gap-2">
             <span className="text-2xl font-bold text-emerald-600">+{Math.round(verifiedLift * 100)}%</span>
-            <span className="text-[11px] text-slate-500">Tested in New Context</span>
+            <span className="text-[11px] text-slate-500">In New Context</span>
           </div>
           <div className="mt-2 text-[11px] text-emerald-700 font-medium">
-            Directory Traversal Assessment
+            Novel Application Tested
           </div>
         </div>
       </div>
 
       {/* Main Section: Interactive Concept Dependency Graph */}
-      <div>
+      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-lg font-bold text-slate-900">Concept Prerequisite Dependency Graph</h2>
+            <h2 className="text-base font-bold text-slate-900">Concept Prerequisite Dependency Graph</h2>
             <p className="text-xs text-slate-500">
-              Interactive structural map linking foundational concepts to downstream applications. Click any node to inspect relationships.
+              Structural curriculum map linking foundational prerequisites to downstream applied topics for {currentSubject.name}.
             </p>
           </div>
           <Link
             href="/graph"
-            className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1"
+            className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1"
           >
-            <span>Full Graph View</span>
+            <span>Full Graph Explorer</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -194,7 +212,7 @@ export default function DashboardPage() {
                 </span>
               </div>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 font-semibold">
-                Hypothesis Confirmed by Quiz Evidence
+                Hypothesis Grounded by Quiz Evidence
               </span>
             </div>
 
@@ -221,7 +239,7 @@ export default function DashboardPage() {
             <span className="text-xs text-slate-500">Diagnostic confidence: <strong>92%</strong></span>
             <Link
               href="/diagnosis"
-              className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1"
+              className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1"
             >
               <span>View Full Diagnosis & Evidence</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -234,7 +252,7 @@ export default function DashboardPage() {
           <div>
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-indigo-600" />
+                <TrendingUp className="w-4 h-4 text-blue-600" />
                 <span className="text-xs font-bold text-slate-900 uppercase tracking-wide">
                   Downstream Learning Risk Estimates
                 </span>
@@ -266,10 +284,10 @@ export default function DashboardPage() {
           </div>
 
           <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400 italic">Transparent factor calculation</span>
+            <span className="text-[11px] text-slate-400 italic">Factor weights calibrated against syllabus</span>
             <Link
               href="/predictions"
-              className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1"
+              className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1"
             >
               <span>Explore Factor Weights</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -289,7 +307,7 @@ export default function DashboardPage() {
           </div>
           <Link
             href="/interventions"
-            className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1"
+            className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1"
           >
             <span>Manage Study Plan</span>
             <ArrowRight className="w-3.5 h-3.5" />

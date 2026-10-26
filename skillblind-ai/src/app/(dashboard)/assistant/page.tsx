@@ -97,7 +97,7 @@ export default function AssistantPage() {
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Page Header */}
       <div>
-        <div className="flex items-center gap-2 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-1">
+        <div className="flex items-center gap-2 text-teal-600 text-xs font-bold uppercase tracking-wider mb-1">
           <Sparkles className="w-4 h-4" />
           <span>Strictly Grounded Academic Assistant</span>
         </div>
@@ -127,7 +127,7 @@ export default function AssistantPage() {
             <div
               className={`max-w-[85%] p-4 rounded-2xl text-xs space-y-2 leading-relaxed ${
                 msg.sender === "user"
-                  ? "bg-indigo-600 text-white rounded-tr-xs"
+                  ? "bg-teal-600 text-white rounded-tr-xs"
                   : "bg-slate-50 border border-slate-200/80 text-slate-900 rounded-tl-xs"
               }`}
             >
@@ -136,7 +136,7 @@ export default function AssistantPage() {
               {/* Citations Footer */}
               {msg.citations && msg.citations.length > 0 && (
                 <div className="mt-3 pt-2.5 border-t border-slate-200/80 space-y-1.5 text-[11px] text-slate-600">
-                  <div className="font-bold text-indigo-700 flex items-center gap-1">
+                  <div className="font-bold text-teal-700 flex items-center gap-1">
                     <BookOpen className="w-3.5 h-3.5" />
                     <span>Grounding Citations from Uploaded Materials:</span>
                   </div>
@@ -158,7 +158,7 @@ export default function AssistantPage() {
 
         {isSearching && (
           <div className="flex items-center gap-2 text-xs text-slate-400 italic py-2">
-            <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-teal-600 animate-pulse" />
             <span>Searching vector embeddings and synthesizing grounded response...</span>
           </div>
         )}
@@ -172,7 +172,7 @@ export default function AssistantPage() {
             <button
               key={idx}
               onClick={() => setInputQuery(q)}
-              className="text-left text-[11px] px-3 py-1.5 rounded-lg bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-200 text-slate-700 transition-colors"
+              className="text-left text-[11px] px-3 py-1.5 rounded-lg bg-white hover:bg-teal-50 border border-slate-200 hover:border-teal-200 text-slate-700 transition-colors"
             >
               {q}
             </button>
@@ -187,12 +187,12 @@ export default function AssistantPage() {
           value={inputQuery}
           onChange={(e) => setInputQuery(e.target.value)}
           placeholder="Ask a question about your uploaded syllabus, notes, or chapters..."
-          className="flex-1 px-4 py-3 rounded-xl border border-slate-300 text-xs text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-xs"
+          className="flex-1 px-4 py-3 rounded-xl border border-slate-300 text-xs text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-teal-500 shadow-xs"
         />
         <button
           type="submit"
           disabled={isSearching || !inputQuery.trim()}
-          className="px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-semibold text-xs flex items-center gap-2 shadow-xs transition-colors shrink-0"
+          className="px-5 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 disabled:opacity-50 text-white font-semibold text-xs flex items-center gap-2 shadow-xs transition-colors shrink-0"
         >
           <Send className="w-3.5 h-3.5" />
           <span>Ask Tutor</span>

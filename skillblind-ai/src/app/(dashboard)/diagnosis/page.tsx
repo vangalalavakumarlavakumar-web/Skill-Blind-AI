@@ -43,7 +43,7 @@ export default function DiagnosisPage() {
 
         <Link
           href="/interventions"
-          className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs flex items-center gap-2 shadow-sm self-start sm:self-auto transition-colors"
+          className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs flex items-center gap-2 shadow-sm self-start sm:self-auto transition-colors"
         >
           <Sparkles className="w-3.5 h-3.5" />
           <span>Generate Intervention Roadmap</span>
@@ -51,11 +51,11 @@ export default function DiagnosisPage() {
       </div>
 
       {/* Methodology Explainer Banner */}
-      <div className="p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200/80 text-xs text-indigo-950 flex items-start gap-3">
-        <Sparkles className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+      <div className="p-4 rounded-2xl bg-teal-50/70 border border-teal-200/80 text-xs text-teal-950 flex items-start gap-3">
+        <Sparkles className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
         <div className="space-y-1">
           <span className="font-bold">Cognitive Diagnosis Principle:</span>
-          <p className="text-[11px] text-indigo-900 leading-relaxed">
+          <p className="text-[11px] text-teal-900 leading-relaxed">
             Distinguishing <strong>Confirmed Observations</strong> (verifiable facts from quiz attempts) from <strong>Root-Cause Hypotheses</strong> (inferred conceptual deficits along the prerequisite DAG). Hypotheses are grounded with actual student quotes and textbook citations.
           </p>
         </div>
@@ -73,23 +73,23 @@ export default function DiagnosisPage() {
               className="bg-white rounded-2xl border-2 border-slate-200 hover:border-slate-300 shadow-sm overflow-hidden transition-all"
             >
               {/* Diagnosis Header */}
-              <div className="p-6 bg-gradient-to-r from-slate-900 to-indigo-950 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="p-6 bg-gradient-to-r from-slate-900 to-teal-950 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">
                       Diagnosis #{index + 1}
                     </span>
-                    <span className="text-xs text-indigo-200 font-medium">
+                    <span className="text-xs text-teal-200 font-medium">
                       Status: <strong className="capitalize">{diag.status}</strong>
                     </span>
                   </div>
                   <h2 className="text-base sm:text-lg font-bold text-white mt-1">
-                    Prerequisite Bottleneck: {rootTopic?.name || "Foundations"} → {observedTopic?.name || "Advanced"}
+                    Prerequisite Bottleneck: {rootTopic?.name || "Foundations"} â†’ {observedTopic?.name || "Advanced"}
                   </h2>
                 </div>
 
                 <div className="text-left sm:text-right">
-                  <div className="text-[10px] text-indigo-300 uppercase font-semibold">Diagnosis Confidence</div>
+                  <div className="text-[10px] text-teal-300 uppercase font-semibold">Diagnosis Confidence</div>
                   <div className="text-xl font-extrabold text-emerald-400">
                     {Math.round(diag.confidence_level * 100)}%
                   </div>

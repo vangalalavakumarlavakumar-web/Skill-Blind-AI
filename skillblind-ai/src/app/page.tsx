@@ -3,128 +3,135 @@
 import React from "react";
 import Link from "next/link";
 import {
-  Brain,
-  Layers,
+  GraduationCap,
   ArrowRight,
   ShieldCheck,
-  Sparkles,
-  GitBranch,
-  TrendingUp,
-  FileCheck2,
   CheckCircle2,
   ChevronRight,
   AlertTriangle,
   BookOpen,
+  HelpCircle,
+  FileText,
+  Upload,
+  Brain,
+  TrendingUp,
+  FileCheck2,
 } from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
       {/* Navigation Bar */}
-      <header className="border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between">
+      <header className="border-b border-slate-200 bg-white sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
-              <Brain className="w-6 h-6" />
+            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-xs">
+              <GraduationCap className="w-5 h-5" />
             </div>
             <div>
-              <span className="font-extrabold text-slate-950 text-lg tracking-tight">
-                SkillBlind <span className="text-indigo-600">AI</span>
+              <span className="font-bold text-slate-900 text-base tracking-tight flex items-center gap-1.5">
+                SkillBlind <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 font-semibold border border-blue-200">ACADEMIC</span>
               </span>
-              <span className="block text-[11px] text-slate-500 font-medium">Cognitive Gap Intelligence</span>
+              <span className="block text-[10px] text-slate-500 font-medium">Curriculum Diagnostic Intelligence</span>
             </div>
           </div>
 
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-            <a href="#how-it-works" className="hover:text-indigo-600 transition-colors">How It Works</a>
-            <a href="#features" className="hover:text-indigo-600 transition-colors">Core Differentiators</a>
-            <a href="#case-study" className="hover:text-indigo-600 transition-colors">Case Study</a>
-            <a href="#security" className="hover:text-indigo-600 transition-colors">Security & Privacy</a>
+          <div className="hidden md:flex items-center gap-8 text-xs font-semibold text-slate-600">
+            <a href="#framework" className="hover:text-blue-600 transition-colors">Diagnostic Methodology</a>
+            <a href="#subjects" className="hover:text-blue-600 transition-colors">Course Modules (20 Qs)</a>
+            <a href="#case-study" className="hover:text-blue-600 transition-colors">Empirical Evaluation</a>
+            <a href="#upload" className="hover:text-blue-600 transition-colors">PDF Ingestion</a>
           </div>
 
           <div className="flex items-center gap-3">
             <Link
               href="/login"
-              className="text-xs font-semibold px-4 py-2 text-slate-700 hover:text-slate-900 transition-colors"
+              className="text-xs font-semibold px-3 py-1.5 text-slate-700 hover:text-slate-900 transition-colors"
             >
               Sign In
             </Link>
             <Link
               href="/dashboard"
-              className="text-xs font-semibold px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm shadow-indigo-600/30 flex items-center gap-2 transition-all"
+              className="text-xs font-semibold px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white shadow-xs flex items-center gap-1.5 transition-colors"
             >
-              <span>Explore Demo</span>
+              <span>Student Dashboard</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative pt-20 pb-24 overflow-hidden bg-gradient-to-b from-white via-indigo-50/20 to-slate-50">
+      {/* Hero Section - Clean Academic Design */}
+      <section className="pt-16 pb-20 bg-white border-b border-slate-200">
         <div className="max-w-5xl mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200/80 text-xs font-semibold text-indigo-700 mb-6">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-            <span>Next-Gen Educational Intelligence & Root-Cause Diagnosis</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 mb-6">
+            <BookOpen className="w-3.5 h-3.5 text-blue-600" />
+            <span>Autonomous Engineering Curriculum Diagnostic Benchmark</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-extrabold text-slate-950 tracking-tight leading-[1.12]">
-            Discover the Knowledge Gaps <br />
-            <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-violet-600 bg-clip-text text-transparent">
-              You Didn&apos;t Know You Had.
-            </span>
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+            Empirical Cognitive Gap Detection & <br />
+            <span className="text-blue-700">Prerequisite Failure Isolation</span>
           </h1>
 
-          <p className="mt-6 text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            SkillBlind AI uncovers hidden learning difficulties, identifies missing prerequisites, and builds an adaptive path toward genuine understanding.
+          <p className="mt-5 text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            A source-grounded diagnostic assessment system for higher education. SkillBlind parses course syllabi, isolates foundational prerequisite gaps across directed dependency graphs, and delivers targeted learning interventions.
           </p>
 
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/dashboard"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-slate-950 hover:bg-slate-900 text-white font-semibold text-sm shadow-lg shadow-slate-950/20 flex items-center justify-center gap-2.5 transition-all"
-            >
-              <span>Launch Student Dashboard</span>
-              <ArrowRight className="w-4 h-4 text-indigo-400" />
-            </Link>
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
             <Link
               href="/quiz"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-semibold text-sm shadow-sm flex items-center justify-center gap-2 transition-colors"
+              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-xs flex items-center justify-center gap-2 transition-colors"
             >
-              <span>Take Diagnostic Quiz</span>
+              <HelpCircle className="w-4 h-4" />
+              <span>Take 20-Question Diagnostic Assessment</span>
+            </Link>
+            <Link
+              href="/materials"
+              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-semibold text-xs shadow-xs flex items-center justify-center gap-2 transition-colors"
+            >
+              <Upload className="w-4 h-4 text-slate-600" />
+              <span>Upload Subject PDF Syllabus</span>
+            </Link>
+            <Link
+              href="/dashboard"
+              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs shadow-xs flex items-center justify-center gap-2 transition-colors"
+            >
+              <span>Explore Dashboard</span>
+              <ArrowRight className="w-3.5 h-3.5 text-blue-300" />
             </Link>
           </div>
 
-          <div className="mt-6 text-xs text-slate-500 font-medium flex items-center justify-center gap-4">
-            <span>✓ Preloaded CS201 Data Structures Subject</span>
-            <span>✓ One-Click Evaluation</span>
-            <span>✓ Genuine RAG & Graph Logic</span>
+          <div className="mt-8 text-xs text-slate-500 font-medium flex flex-wrap items-center justify-center gap-6 pt-4 border-t border-slate-100">
+            <span>✓ 5 Preloaded Core Subjects (DSA, DBMS, OS, Networks, ML)</span>
+            <span>✓ 20 Diagnostic Questions Per Subject</span>
+            <span>✓ Automated PDF Syllabus Ingestion</span>
           </div>
         </div>
 
-        {/* Hero Interactive Concept Graph Preview Card */}
-        <div className="max-w-5xl mx-auto px-6 mt-14">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden p-6 sm:p-8">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+        {/* Diagnostic Concept Dependency Chain Card */}
+        <div className="max-w-5xl mx-auto px-6 mt-12">
+          <div className="bg-slate-50 rounded-2xl border border-slate-200 p-6 sm:p-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
               <div>
-                <span className="text-xs font-semibold uppercase tracking-wider text-indigo-600">Live Demonstration</span>
-                <h3 className="text-lg font-bold text-slate-900">Concept Prerequisite Dependency Graph</h3>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700">Diagnostic Walkthrough</span>
+                <h3 className="text-base font-bold text-slate-900">Concept Prerequisite Dependency Analysis</h3>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Visualizing how missing recursion fundamentals block tree traversal and graph algorithms.
+                  Demonstrating how a failure in Tree Traversal originates from an unaddressed prerequisite gap in Recursion Stack Unwinding.
                 </p>
               </div>
               <Link
                 href="/graph"
-                className="text-xs font-semibold px-3.5 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 flex items-center gap-1.5 self-start sm:self-auto transition-colors"
+                className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-blue-700 hover:bg-slate-100 flex items-center gap-1 self-start sm:self-auto transition-colors"
               >
-                <span>Interactive Graph View</span>
+                <span>Interactive Graph</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </Link>
             </div>
 
             {/* Concept Chain Preview */}
-            <div className="py-8 flex flex-col md:flex-row items-center justify-center gap-3 sm:gap-4 overflow-x-auto">
-              <div className="px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-center min-w-[140px]">
+            <div className="py-6 flex flex-col md:flex-row items-center justify-center gap-3 overflow-x-auto">
+              <div className="px-4 py-3 rounded-xl bg-white border border-slate-200 text-center min-w-[140px] shadow-xs">
                 <div className="text-[10px] uppercase font-bold text-slate-400">Step 1</div>
                 <div className="text-xs font-bold text-slate-800 mt-1">Functions & Scope</div>
                 <span className="inline-block mt-2 text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200">
@@ -132,33 +139,30 @@ export default function LandingPage() {
                 </span>
               </div>
 
-              <ArrowRight className="w-4 h-4 text-slate-300 hidden md:block" />
+              <ArrowRight className="w-4 h-4 text-slate-400 hidden md:block" />
 
-              <div className="px-4 py-3 rounded-xl bg-rose-50 border-2 border-rose-400 text-center min-w-[170px] relative shadow-sm">
-                <div className="absolute -top-2.5 right-2 px-1.5 py-0.2 rounded bg-rose-600 text-white text-[9px] font-bold">
-                  Root Cause Bottleneck!
-                </div>
-                <div className="text-[10px] uppercase font-bold text-rose-500">Prerequisite Gap</div>
+              <div className="px-4 py-3 rounded-xl bg-rose-50 border-2 border-rose-300 text-center min-w-[170px] shadow-xs">
+                <div className="text-[10px] uppercase font-bold text-rose-600">Root-Cause Bottleneck</div>
                 <div className="text-xs font-bold text-rose-950 mt-1">Recursion & Call Stacks</div>
-                <span className="inline-block mt-2 text-[10px] px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 font-bold border border-rose-300">
-                  28% Weak
+                <span className="inline-block mt-2 text-[10px] px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 font-bold border border-rose-200">
+                  28% Prerequisite Gap
                 </span>
               </div>
 
-              <ArrowRight className="w-4 h-4 text-slate-300 hidden md:block" />
+              <ArrowRight className="w-4 h-4 text-slate-400 hidden md:block" />
 
-              <div className="px-4 py-3 rounded-xl bg-amber-50 border border-amber-300 text-center min-w-[150px]">
-                <div className="text-[10px] uppercase font-bold text-amber-500">Observed Issue</div>
+              <div className="px-4 py-3 rounded-xl bg-amber-50 border border-amber-300 text-center min-w-[150px] shadow-xs">
+                <div className="text-[10px] uppercase font-bold text-amber-700">Observed Symptom</div>
                 <div className="text-xs font-bold text-amber-950 mt-1">Tree Traversal</div>
                 <span className="inline-block mt-2 text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-semibold border border-amber-200">
-                  25% Observed
+                  25% Exam Failure
                 </span>
               </div>
 
-              <ArrowRight className="w-4 h-4 text-slate-300 hidden md:block" />
+              <ArrowRight className="w-4 h-4 text-slate-400 hidden md:block" />
 
-              <div className="px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-center min-w-[150px]">
-                <div className="text-[10px] uppercase font-bold text-rose-500">Predicted Risk</div>
+              <div className="px-4 py-3 rounded-xl bg-white border border-slate-200 text-center min-w-[150px] shadow-xs">
+                <div className="text-[10px] uppercase font-bold text-rose-500">Predicted Downstream Risk</div>
                 <div className="text-xs font-bold text-slate-800 mt-1">Graph Algorithms</div>
                 <span className="inline-block mt-2 text-[10px] px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 font-bold border border-rose-200">
                   88% High Risk
@@ -166,164 +170,157 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-indigo-50/60 border border-indigo-100 flex items-center justify-between text-xs text-indigo-900">
+            <div className="p-3.5 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-between text-xs text-blue-950">
               <span className="flex items-center gap-2">
-                <Brain className="w-4 h-4 text-indigo-600" />
-                <strong>Cognitive Diagnosis:</strong> Score-based platforms suggest reviewing &quot;Tree Traversal&quot;. SkillBlind AI diagnoses the actual root cause: student cannot unwind recursion stack frames.
+                <Brain className="w-4 h-4 text-blue-700 shrink-0" />
+                <span>
+                  <strong>Root-Cause Finding:</strong> Traditional scorecards advise reviewing &quot;Tree Traversal&quot;. SkillBlind isolates the foundational gap: student cannot unwind recursion stack frames.
+                </span>
               </span>
-              <Link href="/diagnosis" className="font-semibold text-indigo-700 hover:underline shrink-0 ml-2">
-                View Evidence →
+              <Link href="/diagnosis" className="font-semibold text-blue-700 hover:underline shrink-0 ml-3">
+                Evidence Details →
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 bg-white border-t border-slate-200">
+      {/* 5 Supported Core Subjects Section */}
+      <section id="subjects" className="py-16 bg-slate-50 border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto">
-            <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">The 4-Step Diagnosis Workflow</span>
-            <h2 className="text-3xl font-extrabold text-slate-900 mt-2">
-              Beyond Quiz Scores: Scientific Diagnostic Intelligence
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-700">Supported Curricula</span>
+            <h2 className="text-2xl font-bold text-slate-900 mt-1">
+              Comprehensive 20-Question Diagnostic Banks
             </h2>
-            <p className="text-sm text-slate-600 mt-2">
-              How SkillBlind AI transforms course materials into precision learning interventions.
+            <p className="text-xs text-slate-600 mt-1">
+              Preloaded with 100+ vetted, textbook-grounded diagnostic assessment items across computer science departments.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-14">
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 relative">
-              <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white font-bold text-sm flex items-center justify-center mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {[
+              { code: "CS201", name: "Data Structures & Algorithms", items: "20 Diagnostic Qs", desc: "Recursion, BSTs, Floyd's cycle, Dijkstra, DP" },
+              { code: "CS301", name: "Database Management Systems", items: "20 Diagnostic Qs", desc: "ACID, BCNF, B+ Trees, 2PL locks, WAL logs" },
+              { code: "CS302", name: "Operating Systems", items: "20 Diagnostic Qs", desc: "Context switch, semaphores, Banker's, paging" },
+              { code: "CS401", name: "Computer Networks", items: "20 Diagnostic Qs", desc: "TCP 3-way, CIDR subnetting, OSPF, DNS, TLS" },
+              { code: "CS501", name: "Machine Learning & AI", items: "20 Diagnostic Qs", desc: "Bias-variance, regularization, gradient descent" },
+            ].map((subj) => (
+              <div key={subj.code} className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between">
+                <div>
+                  <div className="text-[10px] font-bold text-blue-700 uppercase">{subj.code}</div>
+                  <div className="text-xs font-bold text-slate-900 mt-1 leading-snug">{subj.name}</div>
+                  <div className="text-[10px] text-slate-500 mt-1 leading-normal">{subj.desc}</div>
+                </div>
+                <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px]">
+                  <span className="font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                    {subj.items}
+                  </span>
+                  <Link href="/quiz" className="font-semibold text-blue-600 hover:underline">
+                    Take Exam →
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Methodology Section */}
+      <section id="framework" className="py-16 bg-white border-b border-slate-200">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-700">Diagnostic Architecture</span>
+            <h2 className="text-2xl font-bold text-slate-900 mt-1">
+              Scientific Diagnostic Workflow
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="p-5 rounded-xl bg-slate-50 border border-slate-200">
+              <div className="w-8 h-8 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center mb-3">
                 1
               </div>
-              <h3 className="font-bold text-slate-900 text-sm">Material Ingestion</h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Upload course syllabi, lecture notes, textbook chapters, and past exam papers. The platform cleans, chunks, and creates vector embeddings.
+              <h3 className="font-bold text-slate-900 text-xs">PDF Syllabus Ingestion</h3>
+              <p className="text-[11px] text-slate-600 mt-1.5 leading-relaxed">
+                Upload PDFs for any subject. The system chunks text, extracts core concepts, and synthesizes 20-question diagnostic assessments.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 relative">
-              <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white font-bold text-sm flex items-center justify-center mb-4">
+            <div className="p-5 rounded-xl bg-slate-50 border border-slate-200">
+              <div className="w-8 h-8 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center mb-3">
                 2
               </div>
-              <h3 className="font-bold text-slate-900 text-sm">Concept Dependency Graph</h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Constructs directed prerequisite graphs mapping how foundational concepts link to advanced applications.
+              <h3 className="font-bold text-slate-900 text-xs">Dependency Graphs</h3>
+              <p className="text-[11px] text-slate-600 mt-1.5 leading-relaxed">
+                Directed acyclic dependency graphs map every foundational concept to its applied downstream learning objectives.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 relative">
-              <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white font-bold text-sm flex items-center justify-center mb-4">
+            <div className="p-5 rounded-xl bg-slate-50 border border-slate-200">
+              <div className="w-8 h-8 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center mb-3">
                 3
               </div>
-              <h3 className="font-bold text-slate-900 text-sm">Root-Cause Diagnosis</h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Evaluates responses against rubrics and confidence ratings. Traces errors back through the dependency graph to find the true underlying blindspot.
+              <h3 className="font-bold text-slate-900 text-xs">Confidence Calibration</h3>
+              <p className="text-[11px] text-slate-600 mt-1.5 leading-relaxed">
+                Correlates student subjective confidence against actual response correctness to identify dangerous high-confidence misconceptions.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 relative">
-              <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white font-bold text-sm flex items-center justify-center mb-4">
+            <div className="p-5 rounded-xl bg-slate-50 border border-slate-200">
+              <div className="w-8 h-8 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center mb-3">
                 4
               </div>
-              <h3 className="font-bold text-slate-900 text-sm">Transfer Verification</h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Verifies genuine understanding by challenging the student with new, unfamiliar application contexts rather than repeating identical questions.
+              <h3 className="font-bold text-slate-900 text-xs">Transfer Testing</h3>
+              <p className="text-[11px] text-slate-600 mt-1.5 leading-relaxed">
+                Validates true conceptual repair by presenting completely novel scenarios to guarantee students haven&apos;t simply memorized questions.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Core Differentiators Section */}
-      <section id="features" className="py-20 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">Core Innovations</span>
-            <h2 className="text-3xl font-extrabold text-slate-900 mt-2">
-              Engineered to Solve the Blindspots of Modern EdTech
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mb-4">
-                <Brain className="w-5 h-5" />
-              </div>
-              <h3 className="font-bold text-slate-900 text-base">Root-Cause Diagnosis Engine</h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Distinguishes between observed errors and underlying causes. Associates every hypothesis with verbatim student quotes and exact textbook citations.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4">
-                <TrendingUp className="w-5 h-5" />
-              </div>
-              <h3 className="font-bold text-slate-900 text-base">Predictive Risk Modeling</h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Transparent factor weighting computes estimated learning risk for downstream concepts before the student even encounters them in an exam.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4">
-                <FileCheck2 className="w-5 h-5" />
-              </div>
-              <h3 className="font-bold text-slate-900 text-base">Transfer-of-Knowledge Testing</h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Guarantees students haven&apos;t just memorized answer keys. Measures performance lift by generating fresh scenarios grounded in the same theoretical principles.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Case Study / Before-and-After */}
-      <section id="case-study" className="py-20 bg-white border-t border-slate-200">
+      {/* Case Study / Before and After */}
+      <section id="case-study" className="py-16 bg-slate-50 border-b border-slate-200">
         <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">Measurable Results</span>
-            <h2 className="text-3xl font-extrabold text-slate-900 mt-2">
-              Real-World Learning Intervention Impact
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-700">Measurable Educational Lift</span>
+            <h2 className="text-2xl font-bold text-slate-900 mt-1">
+              Comparative Benchmark Results
             </h2>
-            <p className="text-sm text-slate-600 mt-1">
-              Case study from our Data Structures & Algorithms diagnostic benchmark.
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-6 rounded-2xl bg-rose-50/50 border border-rose-200">
               <div className="flex items-center justify-between pb-3 border-b border-rose-200">
-                <span className="text-xs font-bold text-rose-800 uppercase">Traditional Score-Based Platform</span>
+                <span className="text-xs font-bold text-rose-800 uppercase">Traditional Scorecard Approach</span>
                 <span className="text-xs font-bold text-rose-700">Before</span>
               </div>
               <div className="mt-4 space-y-3 text-xs text-slate-700">
                 <div className="flex items-start gap-2">
                   <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
-                  <span><strong>Diagnosis:</strong> &quot;Student scored 25% in Tree Traversal. Recommend re-reading Tree Traversal.&quot;</span>
+                  <span><strong>Assessment:</strong> Student scores 25% on Tree Traversal.</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
-                  <span><strong>Result:</strong> Student rereads the tree chapter, but still fails the midterm because the underlying recursion blindspot was never repaired.</span>
+                  <span><strong>Advisory:</strong> &quot;Reread Chapter 5 on Trees.&quot; Student rereads but fails midterm because call stack unwinding was the root cause.</span>
                 </div>
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-emerald-50/60 border border-emerald-300 shadow-sm">
+            <div className="p-6 rounded-2xl bg-emerald-50/50 border border-emerald-200">
               <div className="flex items-center justify-between pb-3 border-b border-emerald-200">
-                <span className="text-xs font-bold text-emerald-800 uppercase">SkillBlind AI Intelligence</span>
-                <span className="text-xs font-bold text-emerald-700">After (+60% Lift)</span>
+                <span className="text-xs font-bold text-emerald-800 uppercase">SkillBlind Diagnostic Model</span>
+                <span className="text-xs font-bold text-emerald-700">+60% Verified Lift</span>
               </div>
               <div className="mt-4 space-y-3 text-xs text-slate-700">
                 <div className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>Diagnosis:</strong> Root cause identified in prerequisite <em>Recursion Stack Unwinding</em>. Targeted tracing exercise recommended.</span>
+                  <span><strong>Diagnosis:</strong> Root cause isolated in prerequisite <em>Recursion Stack Unwinding</em>. Targeted tracing intervention assigned.</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>Verified Transfer:</strong> Student achieved <strong>85%</strong> on a completely new file-system traversal assessment.</span>
+                  <span><strong>Verification:</strong> Student achieved <strong>85%</strong> on a novel file-system traversal assessment.</span>
                 </div>
               </div>
             </div>
@@ -331,27 +328,16 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Security & Privacy */}
-      <section id="security" className="py-14 bg-slate-900 text-slate-300">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <ShieldCheck className="w-8 h-8 text-indigo-400 mx-auto mb-3" />
-          <h3 className="text-lg font-bold text-white">Academic Integrity & Row Level Security</h3>
-          <p className="text-xs text-slate-400 mt-2 max-w-2xl mx-auto leading-relaxed">
-            All uploaded syllabi, lecture notes, and student attempts are protected by Supabase Row Level Security (RLS). Embeddings and retrieved chunks are strictly bound to the authenticated user ID with zero cross-student vector leakage.
-          </p>
-        </div>
-      </section>
-
       {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white py-10 mt-auto">
+      <footer className="border-t border-slate-200 bg-white py-8 mt-auto">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div className="flex items-center gap-2">
-            <Brain className="w-4 h-4 text-indigo-600" />
-            <span className="font-semibold text-slate-800">SkillBlind AI</span>
-            <span>— Find the Gap. Understand the Cause. Master the Concept.</span>
+            <GraduationCap className="w-4 h-4 text-blue-600" />
+            <span className="font-bold text-slate-900">SkillBlind Academic Diagnostic Platform</span>
+            <span>— Autonomous Engineering College Curriculum Benchmark</span>
           </div>
           <div>
-            Built with Next.js 15, TypeScript, Tailwind CSS, Supabase, and Google Gemini.
+            Built by Lava Kumar • Department of Computer Science & Engineering
           </div>
         </div>
       </footer>
