@@ -151,7 +151,7 @@ export default function AssistantPage() {
               )}
             </div>
             <span className="text-[10px] text-slate-400 mt-1 px-1">
-              {msg.sender === "user" ? "You" : "SkillBlind Grounded Tutor"}
+              {msg.sender === "user" ? "You" : "GapFinder AI Tutor"}
             </span>
           </div>
         ))}

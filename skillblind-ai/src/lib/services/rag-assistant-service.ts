@@ -72,7 +72,7 @@ export async function askGroundedAssistant(
     )
     .join("\n\n");
 
-  const prompt = `You are the SkillBlind AI Evidence-Grounded Tutor.
+  const prompt = `You are the GapFinder AI Evidence-Grounded Tutor.
 Answer the student's question ONLY using the following retrieved passages from their uploaded study material.
 Do NOT fabricate any facts, page numbers, or assumptions outside this text.
 If the answer cannot be determined from these passages, respond exactly with:

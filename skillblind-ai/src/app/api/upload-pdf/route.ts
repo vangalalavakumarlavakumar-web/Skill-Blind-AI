@@ -19,17 +19,25 @@ export async function POST(req: NextRequest) {
     // Check if PDF
     if (file.name.toLowerCase().endsWith(".pdf")) {
       try {
-        // dynamic import of pdf-parse
-        const pdfParseModule = await import("pdf-parse");
-        // Handle both default export and standard export
-        const pdfParse = (pdfParseModule as any).default || pdfParseModule;
-        const pdfData = await pdfParse(buffer);
-        extractedText = pdfData.text || "";
-        totalPages = pdfData.numpages || Math.ceil(extractedText.length / 1200) || 1;
+        // pdf-parse is a CommonJS module — use require for reliable loading
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        const pdfParse = require("pdf-parse");
+        const pdfFn = typeof pdfParse === "function" ? pdfParse : pdfParse.default;
+
+        if (typeof pdfFn === "function") {
+          const pdfData = await pdfFn(buffer);
+          extractedText = pdfData.text || "";
+          totalPages = pdfData.numpages || Math.ceil(extractedText.length / 1200) || 1;
+        } else {
+          throw new Error("pdf-parse module loaded but not callable");
+        }
       } catch (pdfErr) {
         console.warn("pdf-parse extraction warning, falling back to buffer string decode:", pdfErr);
         // Fallback: extract printable strings from buffer
-        extractedText = buffer.toString("utf-8").replace(/[^\x20-\x7E\n\r\t]/g, " ");
+        extractedText = buffer
+          .toString("utf-8")
+          .replace(/[^\x20-\x7E\n\r\t]/g, " ")
+          .replace(/ {3,}/g, " ");
         totalPages = Math.ceil(extractedText.length / 1200) || 1;
       }
     } else {

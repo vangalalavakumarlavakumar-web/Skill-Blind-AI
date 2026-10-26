@@ -30,7 +30,7 @@ export default function LandingPage() {
             </div>
             <div>
               <span className="font-bold text-slate-900 text-base tracking-tight flex items-center gap-1.5">
-                SkillBlind <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 font-semibold border border-blue-200">ACADEMIC</span>
+                GapFinder <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 font-semibold border border-blue-200">AI</span>
               </span>
               <span className="block text-[10px] text-slate-500 font-medium">Curriculum Diagnostic Intelligence</span>
             </div>
@@ -75,7 +75,7 @@ export default function LandingPage() {
           </h1>
 
           <p className="mt-5 text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            A source-grounded diagnostic assessment system for higher education. SkillBlind parses course syllabi, isolates foundational prerequisite gaps across directed dependency graphs, and delivers targeted learning interventions.
+            A source-grounded diagnostic assessment system for higher education. GapFinder AI parses course syllabi, isolates foundational prerequisite gaps across directed dependency graphs, and delivers targeted learning interventions.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
@@ -174,7 +174,7 @@ export default function LandingPage() {
               <span className="flex items-center gap-2">
                 <Brain className="w-4 h-4 text-blue-700 shrink-0" />
                 <span>
-                  <strong>Root-Cause Finding:</strong> Traditional scorecards advise reviewing &quot;Tree Traversal&quot;. SkillBlind isolates the foundational gap: student cannot unwind recursion stack frames.
+                  <strong>Root-Cause Finding:</strong> Traditional scorecards advise reviewing &quot;Tree Traversal&quot;. GapFinder AI isolates the foundational gap: student cannot unwind recursion stack frames.
                 </span>
               </span>
               <Link href="/diagnosis" className="font-semibold text-blue-700 hover:underline shrink-0 ml-3">
@@ -310,7 +310,7 @@ export default function LandingPage() {
 
             <div className="p-6 rounded-2xl bg-emerald-50/50 border border-emerald-200">
               <div className="flex items-center justify-between pb-3 border-b border-emerald-200">
-                <span className="text-xs font-bold text-emerald-800 uppercase">SkillBlind Diagnostic Model</span>
+                <span className="text-xs font-bold text-emerald-800 uppercase">GapFinder Diagnostic Model</span>
                 <span className="text-xs font-bold text-emerald-700">+60% Verified Lift</span>
               </div>
               <div className="mt-4 space-y-3 text-xs text-slate-700">
@@ -333,7 +333,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div className="flex items-center gap-2">
             <GraduationCap className="w-4 h-4 text-blue-600" />
-            <span className="font-bold text-slate-900">SkillBlind Academic Diagnostic Platform</span>
+            <span className="font-bold text-slate-900">GapFinder AI Academic Diagnostic Platform</span>
             <span>— Autonomous Engineering College Curriculum Benchmark</span>
           </div>
           <div>

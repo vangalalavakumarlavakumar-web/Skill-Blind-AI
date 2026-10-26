@@ -57,7 +57,7 @@ export default function Sidebar() {
         </div>
         <div>
           <span className="font-bold text-white text-base tracking-tight flex items-center gap-1.5">
-            SkillBlind <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-900/60 text-blue-300 font-semibold border border-blue-700/60">ACADEMIC</span>
+            GapFinder <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-900/60 text-blue-300 font-semibold border border-blue-700/60">AI</span>
           </span>
           <span className="block text-[10px] text-slate-400 font-medium">Diagnostic Knowledge Engine</span>
         </div>

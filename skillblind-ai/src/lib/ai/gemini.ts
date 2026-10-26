@@ -16,7 +16,7 @@ export async function generateCompletion(prompt: string, systemInstruction?: str
   try {
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
-      systemInstruction: systemInstruction || "You are SkillBlind AI, an expert cognitive diagnostic and educational intelligence assistant.",
+      systemInstruction: systemInstruction || "You are GapFinder AI, an expert cognitive diagnostic and educational intelligence assistant.",
     });
 
     const result = await model.generateContent(prompt);
@@ -61,5 +61,5 @@ function fallbackResponse(prompt: string): string {
     ]);
   }
 
-  return "SkillBlind AI diagnostic engine analyzed the request according to syllabus grounded evidence.";
+  return "GapFinder AI diagnostic engine analyzed the request according to syllabus grounded evidence.";
 }

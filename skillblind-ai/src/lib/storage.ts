@@ -202,9 +202,37 @@ export function getInitialState(): SkillBlindState {
 export function saveState(state: SkillBlindState): void {
   if (typeof window !== "undefined") {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      // Strip large question arrays from quizzes to avoid localStorage quota limits.
+      // Questions are loaded at runtime from subject-question-banks.
+      const leanState = {
+        ...state,
+        quizzes: state.quizzes.map((q) => ({
+          ...q,
+          questions: q.questions && q.questions.length > 0
+            ? q.questions.map((qn) => ({ id: qn.id, topic_id: qn.topic_id, question_type: qn.question_type }))
+            : [],
+        })),
+        // Strip chunk content to save space, keep metadata
+        chunks: state.chunks.slice(0, 20).map((c) => ({
+          ...c,
+          content: c.content ? c.content.slice(0, 200) : "",
+        })),
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(leanState));
     } catch (e) {
       console.error("Failed to save state to localStorage", e);
+      // If still exceeding quota, try saving without chunks
+      try {
+        const minimalState = {
+          ...state,
+          quizzes: state.quizzes.map((q) => ({ ...q, questions: [] })),
+          chunks: [],
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(minimalState));
+      } catch (e2) {
+        console.error("Still exceeding localStorage quota, clearing old data", e2);
+        localStorage.removeItem(STORAGE_KEY);
+      }
     }
   }
 }

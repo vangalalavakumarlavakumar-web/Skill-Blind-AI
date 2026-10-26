@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Brain, ArrowRight, Shield, Sparkles, UserCheck } from "lucide-react";
+import { GraduationCap, ArrowRight, Shield, Sparkles, UserCheck } from "lucide-react";
 import { resetToDemoState } from "@/lib/storage";
 import { useAuth } from "@/lib/auth-context";
 
@@ -36,11 +36,11 @@ export default function RegisterPage() {
         {/* Brand */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-teal-500/20">
-              <Brain className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+              <GraduationCap className="w-5 h-5" />
             </div>
             <span className="font-extrabold text-slate-900 text-xl tracking-tight">
-              SkillBlind <span className="text-teal-600">AI</span>
+              GapFinder <span className="text-blue-600">AI</span>
             </span>
           </Link>
           <h2 className="text-xl font-bold text-slate-900 mt-4">Create Your Account</h2>
