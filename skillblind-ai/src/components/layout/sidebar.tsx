@@ -16,6 +16,8 @@ import {
   BookOpen,
   Brain,
   Layers,
+  Sliders,
+  FileSearch,
 } from "lucide-react";
 import { getInitialState, SkillBlindState } from "@/lib/storage";
 
@@ -25,6 +27,9 @@ const NAV_ITEMS = [
   { label: "Concept Dependency Graph", href: "/graph", icon: GitBranch },
   { label: "Diagnostic Assessment (20 Qs)", href: "/quiz", icon: HelpCircle },
   { label: "Root-Cause Diagnosis", href: "/diagnosis", icon: Brain },
+  { label: "Gap Simulation Studio", href: "/simulator", icon: Sliders, badge: "Exclusive" },
+  { label: "Exam Question Forensics", href: "/forensics", icon: FileSearch, badge: "New" },
+  { label: "GapCards (Smart Recall)", href: "/flashcards", icon: Layers },
   { label: "Predictive Risk Model", href: "/predictions", icon: TrendingUp },
   { label: "Adaptive Interventions", href: "/interventions", icon: BookOpen },
   { label: "Transfer Verification", href: "/transfer", icon: FileCheck2 },
@@ -82,8 +87,13 @@ export default function Sidebar() {
                   : "text-slate-400 hover:text-white hover:bg-slate-800/80"
               }`}
             >
-              <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-400"}`} />
-              <span className="truncate">{item.label}</span>
+              <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-white" : "text-slate-400"}`} />
+              <span className="truncate flex-1">{item.label}</span>
+              {"badge" in item && item.badge && (
+                <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30">
+                  {item.badge}
+                </span>
+              )}
             </Link>
           );
         })}

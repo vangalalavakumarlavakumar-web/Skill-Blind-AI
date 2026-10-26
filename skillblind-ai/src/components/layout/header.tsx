@@ -2,15 +2,26 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { BookOpen, RotateCcw, Upload, UserCheck, LogOut, ChevronDown } from "lucide-react";
+import { BookOpen, RotateCcw, Upload, UserCheck, LogOut, ChevronDown, Database } from "lucide-react";
 import { getInitialState, saveState, switchActiveSubject, resetToDemoState } from "@/lib/storage";
 import { useAuth } from "@/lib/auth-context";
 import { Subject } from "@/types";
+import BackendModal from "@/components/backend-modal";
 
 export default function Header() {
   const { user, logout } = useAuth();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [activeSubject, setActiveSubject] = useState<Subject | null>(null);
+  const [isBackendModalOpen, setIsBackendModalOpen] = useState(false);
+  const [backendConnected, setBackendConnected] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    // Check backend health
+    fetch("/api/backend/status")
+      .then((res) => res.json())
+      .then((data) => setBackendConnected(Boolean(data?.isConnected)))
+      .catch(() => setBackendConnected(false));
+  }, []);
 
   useEffect(() => {
     const s = getInitialState();
@@ -81,6 +92,27 @@ export default function Header() {
 
       {/* Action Buttons & User Profile */}
       <div className="flex items-center gap-3">
+        {/* Database & Cloud Backend Status Button */}
+        <button
+          onClick={() => setIsBackendModalOpen(true)}
+          className={`px-2.5 py-1.5 rounded-lg border text-xs font-medium flex items-center gap-1.5 transition-colors ${
+            backendConnected
+              ? "border-emerald-200 bg-emerald-50/70 text-emerald-800 hover:bg-emerald-100"
+              : "border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700"
+          }`}
+          title="Supabase Cloud Database & AI Backend Status"
+        >
+          <Database className={`w-3.5 h-3.5 ${backendConnected ? "text-emerald-600" : "text-blue-600"}`} />
+          <span className="flex items-center gap-1 font-semibold">
+            {backendConnected ? "Supabase Live" : "Database: Sync"}
+            <span
+              className={`w-1.5 h-1.5 rounded-full ${
+                backendConnected ? "bg-emerald-500 animate-pulse" : "bg-blue-500"
+              }`}
+            />
+          </span>
+        </button>
+
         {/* Reset Demo Data Button */}
         <button
           onClick={handleReset}
@@ -123,6 +155,11 @@ export default function Header() {
           </button>
         </div>
       </div>
+
+      <BackendModal
+        isOpen={isBackendModalOpen}
+        onClose={() => setIsBackendModalOpen(false)}
+      />
     </header>
   );
 }

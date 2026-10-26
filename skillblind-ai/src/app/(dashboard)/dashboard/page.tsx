@@ -16,6 +16,9 @@ import {
   HelpCircle,
   FileText,
   Upload,
+  Sliders,
+  FileSearch,
+  Sparkles,
 } from "lucide-react";
 import { getInitialState, SkillBlindState } from "@/lib/storage";
 import ConceptGraphCanvas from "@/components/graph/concept-graph-canvas";
@@ -197,6 +200,90 @@ export default function DashboardPage() {
         </div>
 
         <ConceptGraphCanvas nodes={graphData.nodes} edges={graphData.edges} />
+      </div>
+
+      {/* Advanced Cognitive Diagnostic Features Banner */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Gap Simulation Studio */}
+        <Link
+          href="/simulator"
+          className="p-5 rounded-2xl bg-gradient-to-br from-blue-50/80 to-indigo-50/80 border border-blue-200/80 hover:border-blue-400 shadow-xs hover:shadow-md transition-all group flex flex-col justify-between"
+        >
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-xs">
+                <Sliders className="w-4 h-4" />
+              </span>
+              <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200">
+                Exclusive Tool
+              </span>
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 mt-3 group-hover:text-blue-700 transition-colors">
+              Counterfactual Simulation Studio
+            </h3>
+            <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+              Dynamically model what happens to downstream mastery and final exam risk if you fix specific root gaps.
+            </p>
+          </div>
+          <div className="mt-4 pt-3 border-t border-blue-200/60 flex items-center justify-between text-xs font-semibold text-blue-700">
+            <span>Launch Simulator</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </Link>
+
+        {/* Past Paper Forensics */}
+        <Link
+          href="/forensics"
+          className="p-5 rounded-2xl bg-gradient-to-br from-rose-50/80 to-amber-50/80 border border-rose-200/80 hover:border-rose-400 shadow-xs hover:shadow-md transition-all group flex flex-col justify-between"
+        >
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="w-8 h-8 rounded-xl bg-rose-600 flex items-center justify-center text-white shadow-xs">
+                <FileSearch className="w-4 h-4" />
+              </span>
+              <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-200">
+                Predictive Risk
+              </span>
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 mt-3 group-hover:text-rose-700 transition-colors">
+              Exam Question Forensics
+            </h3>
+            <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+              Deconstruct real university exam questions into prerequisite nodes and predict your exact failure points.
+            </p>
+          </div>
+          <div className="mt-4 pt-3 border-t border-rose-200/60 flex items-center justify-between text-xs font-semibold text-rose-700">
+            <span>Analyze Exam Papers</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </Link>
+
+        {/* GapCards Active Recall */}
+        <Link
+          href="/flashcards"
+          className="p-5 rounded-2xl bg-gradient-to-br from-purple-50/80 to-pink-50/80 border border-purple-200/80 hover:border-purple-400 shadow-xs hover:shadow-md transition-all group flex flex-col justify-between"
+        >
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="w-8 h-8 rounded-xl bg-purple-600 flex items-center justify-center text-white shadow-xs">
+                <Layers className="w-4 h-4" />
+              </span>
+              <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-purple-100 text-purple-800 border border-purple-200">
+                Spaced Recall
+              </span>
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 mt-3 group-hover:text-purple-700 transition-colors">
+              GapCards Smart Flashcards
+            </h3>
+            <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+              Active recall deck generated directly from your identified misconceptions with SM-2 spaced repetition.
+            </p>
+          </div>
+          <div className="mt-4 pt-3 border-t border-purple-200/60 flex items-center justify-between text-xs font-semibold text-purple-700">
+            <span>Practice Flashcards</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </Link>
       </div>
 
       {/* Mid Grid: Root Cause Highlight & Predictive Risk */}
