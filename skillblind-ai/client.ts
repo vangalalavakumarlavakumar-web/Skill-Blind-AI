@@ -1,16 +1,167 @@
-import { createClient } from "@supabase/supabase-js";
+"use client";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://abifverrnrrfudakacjb.supabase.co";
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFiaWZ2ZXJybnJyZnVkYWthY2piIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMwMDUyMjIsImV4cCI6MjEwODU4MTIyMn0.i7z1FlDMI7H1wfAbEbmdStBnO1QSR0n9CcSGpU1n-ME";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { supabase } from "@/lib/supabase/client";
 
-if (!supabaseUrl || !supabaseAnonKey) {
-    console.warn("⚠️ Supabase credentials missing from environment variables.");
+export default function RegisterPage() {
+    const router = useRouter();
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [rollNumber, setRollNumber] = useState("");
+    const [semester, setSemester] = useState("5");
+    const [password, setPassword] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setErrorMsg("");
+        setIsLoading(true);
+
+        try {
+            // 1. Sign up user in Supabase Auth
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: {
+                        full_name: name,
+                        roll_number: rollNumber,
+                        semester: parseInt(semester, 10),
+                    },
+                },
+            });
+
+            if (error) {
+                setErrorMsg(error.message);
+                setIsLoading(false);
+                return;
+            }
+
+            // 2. Insert student profile into public.students
+            if (data?.user) {
+                await supabase.from("students").upsert({
+                    id: data.user.id,
+                    email,
+                    name,
+                    roll_number: rollNumber || "CSE-001",
+                    semester: parseInt(semester, 10) || 5,
+                    branch: "CSE",
+                });
+            }
+
+            // 3. Success! Redirect to dashboard
+            router.push("/dashboard");
+        } catch (err: any) {
+            setErrorMsg(err.message || "An unexpected error occurred during signup");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    return (
+        <div className= "min-h-screen flex items-center justify-center bg-slate-950 p-4" >
+        <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl" >
+            <h2 className="text-2xl font-bold text-white text-center mb-2" > Create Student Account </h2>
+                < p className = "text-slate-400 text-sm text-center mb-6" >
+                    Sign up to track learning gaps and take adaptive assessments
+                        </p>
+
+    {
+        errorMsg && (
+            <div className="mb-4 p-3 rounded-lg bg-red-950/50 border border-red-800 text-red-300 text-sm" >
+                { errorMsg }
+                </div>
+        )
+    }
+
+    <form onSubmit={ handleSubmit } className = "space-y-4" >
+        <div>
+        <label className="block text-xs font-semibold text-slate-300 uppercase mb-1" > Full Name </label>
+            < input
+    type = "text"
+    required
+    value = { name }
+    onChange = {(e) => setName(e.target.value)
 }
+className = "w-full px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+placeholder = "e.g. Lava Kumar"
+    />
+    </div>
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-    auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
-    },
-});
+    < div >
+    <label className="block text-xs font-semibold text-slate-300 uppercase mb-1" > Email Address </label>
+        < input
+type = "email"
+required
+value = { email }
+onChange = {(e) => setEmail(e.target.value)}
+className = "w-full px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+placeholder = "student@university.edu"
+    />
+    </div>
+
+    < div className = "grid grid-cols-2 gap-3" >
+        <div>
+        <label className="block text-xs font-semibold text-slate-300 uppercase mb-1" > Roll Number </label>
+            < input
+type = "text"
+value = { rollNumber }
+onChange = {(e) => setRollNumber(e.target.value)}
+className = "w-full px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+placeholder = "283"
+    />
+    </div>
+    < div >
+    <label className="block text-xs font-semibold text-slate-300 uppercase mb-1" > Semester </label>
+        < select
+value = { semester }
+onChange = {(e) => setSemester(e.target.value)}
+className = "w-full px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+    >
+{
+    [1, 2, 3, 4, 5, 6, 7, 8].map((s) => (
+        <option key= { s } value = { s } >
+        Semester { s }
+    </option>
+    ))
+}
+    </select>
+    </div>
+    </div>
+
+    < div >
+    <label className="block text-xs font-semibold text-slate-300 uppercase mb-1" > Password </label>
+        < input
+type = "password"
+required
+minLength = { 6}
+value = { password }
+onChange = {(e) => setPassword(e.target.value)}
+className = "w-full px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+placeholder = "••••••••"
+    />
+    </div>
+
+    < button
+type = "submit"
+disabled = { isLoading }
+className = "w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium text-sm transition-colors shadow-lg shadow-indigo-600/30 disabled:opacity-50 mt-2"
+    >
+    { isLoading? "Creating Account...": "Create Account" }
+    </button>
+    </form>
+
+    < p className = "mt-6 text-center text-xs text-slate-400" >
+        Already have an account ? { " "}
+            < Link href = "/login" className = "text-indigo-400 hover:text-indigo-300 font-semibold underline" >
+                Sign In
+                    </Link>
+                    </p>
+                    </div>
+                    </div>
+  );
+}
